@@ -4,10 +4,14 @@ import api from '../apiUtil'
 const stateInit = {
   User: {
     id: null,
-    name: null,
     userid: null,
     password: null,
-    position: null,
+    name: null,
+    rank: null,
+    email: null,
+    phone: null,
+    role: null,
+    active: null,
     createdAt: null,
     updatedAt: null
   }
@@ -22,8 +26,8 @@ export default {
     InputMode: null // 입력모드(등록: insert, 수정: update)
   },
   getters: {
-    UserList: state => state.DepartmentList,
-    User: state => state.Department,
+    UserList: state => state.UserList,
+    User: state => state.User,
     UserInsertedResult: state => state.InsertedResult,
     UserUpdatedResult: state => state.UpdatedResult,
     UserInputMode: state => state.InputMode
@@ -60,6 +64,30 @@ export default {
         context.commit('setInsertedResult', insertedResult)
       })
     },
+    // 사용자 리스트 조회
+    actUserList(context, payload) {
+      /* 
+      const userList = [
+        {
+          id: 1,
+          userid: 'kim123',
+          password: '123123',
+          name: '김영일',
+          rank: '팀장',
+          email: 'kim123@email.com',
+          phone: '010-0123-4567',
+          role: 'leader',
+          active: 'true',
+          createdAt: '2022-03-01T00:00:00.000Z',
+          updatedAt: null
+        }
+      ]
+      */
+      api.get('/serverApi/users').then(response => {
+        const userList = response && response.data
+        context.commit('setUserList', userList)
+      })
+    },
     // 사용자정보 초기화
     actUserInit(context, payload) {
       context.commit('setUser', { ...stateInit.User })
@@ -69,18 +97,18 @@ export default {
       context.commit('setInputMode', payload)
     },
     // 사용자 상세정보 조회
-    actDepartmentInfo(context, payload) {
+    actUserInfo(context, payload) {
       // 상태값 초기화
-      context.commit('setDepartment', { ...stateInit.Department })
+      context.commit('setUser', { ...stateInit.User })
 
       /* RestAPI 호출 */
       api.get('/serverApi/users/${payload}').then(response => {
-        const department = response && response.department
-        context.commit('setDepartment', department)
+        const user = response && response.user
+        context.commit('setUser', user)
       })
     },
     // 사용자 수정
-    actDepartmentUpdate(context, payload) {
+    actUserUpdate(context, payload) {
       // 상태값 초기화
       context.commit('setUpdatedResult', null)
 

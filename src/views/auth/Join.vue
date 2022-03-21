@@ -3,15 +3,6 @@
     <h3>회원가입</h3>
     <div class="Join_formbox">
       <b-form v-if="show" class="Join_form" @submit="onSubmit" @reset="onReset">
-        <b-form-group id="Join_namebox" label-for="Join_name" label="이름" label-cols="4" label-cols-lg="2">
-          <b-form-input
-            id="Join_name"
-            v-model="join.name"
-            type="text"
-            placeholder="이름을 입력해주세요"
-            required
-          ></b-form-input>
-        </b-form-group>
         <b-form-group id="Join_idbox" label-for="Join_id" label="ID" label-cols="4" label-cols-lg="2">
           <b-form-input
             id="Join_id"
@@ -31,8 +22,35 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-form-group id="Join_positionbox" label-for="Join_position" label="직급" label-cols="4" label-cols-lg="2">
-          <b-form-select id="input-3" v-model="join.position" :options="positions" required></b-form-select>
+        <b-form-group id="Join_namebox" label-for="Join_name" label="이름" label-cols="4" label-cols-lg="2">
+          <b-form-input
+            id="Join_name"
+            v-model="join.name"
+            type="text"
+            placeholder="이름을 입력해주세요"
+            required
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group id="Join_rankbox" label-for="Join_rank" label="직급" label-cols="4" label-cols-lg="2">
+          <b-form-select id="input-3" v-model="join.rank" :options="ranks" required></b-form-select>
+        </b-form-group>
+        <b-form-group id="Join_emailbox" label-for="Join_email" label="이메일" label-cols="4" label-cols-lg="2">
+          <b-form-input
+            id="Join_emailbox"
+            v-model="join.email"
+            type="text"
+            placeholder="이메일을 입력해주세요"
+            required
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group id="Join_phonebox" label-for="Join_phone" label="전화번호" label-cols="4" label-cols-lg="2">
+          <b-form-input
+            id="Join_phonebox"
+            v-model="join.phone"
+            type="text"
+            placeholder="전화번호를 입력해주세요"
+            required
+          ></b-form-input>
         </b-form-group>
         <div class="Join_btnbox">
           <b-button type="submit" class="Join_btnsub">확인</b-button>
@@ -48,12 +66,14 @@ export default {
   data() {
     return {
       join: {
-        name: '',
         userid: '',
         password: '',
-        position: null
+        name: '',
+        rank: null,
+        email: '',
+        phone: ''
       },
-      positions: [{ text: '직급을 선택해주세요', value: null }, '팀장', '팀원'],
+      ranks: [{ text: '직급을 선택해주세요', value: null }, '팀장', '팀원'],
       show: true
     }
   },
@@ -66,10 +86,12 @@ export default {
     onReset(event) {
       event.preventDefault()
       // Reset our form values
-      this.join.name = ''
       this.join.userid = ''
       this.join.password = ''
-      this.join.position = null
+      this.join.name = ''
+      this.join.rank = null
+      this.join.email = ''
+      this.join.phone = ''
       // Trick to reset/clear native browser form validation state
       this.show = false
       this.$nextTick(() => {

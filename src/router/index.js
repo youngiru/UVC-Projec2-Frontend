@@ -31,6 +31,18 @@ const routes = [
             component: () => import('../views/auth/Join.vue')
           }
         ]
+      },
+      {
+        path: '/dashboard',
+        component: () => import('../views/dashboard')
+      },
+      {
+        path: '/user',
+        component: () => import('../views/user')
+      },
+      {
+        path: '/device',
+        component: () => import('../views/device')
       }
     ]
   },
