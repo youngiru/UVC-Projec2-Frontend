@@ -22,9 +22,6 @@
             required
           ></b-form-input>
         </b-form-group>
-        <p>
-          <router-link to="/auth/join" class="color_000">회원가입</router-link>
-        </p>
         <b-button type="submit" variant="primary" class="Login_btn">로그인</b-button>
       </b-form>
     </div>

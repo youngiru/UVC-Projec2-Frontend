@@ -90,51 +90,52 @@ html{
 }
 // Login.vue
 
-// Join.vue
-#Join_wrap{
-  width: $wi;
-  margin: $mr;
-  h3{
-    font-size: 3rem;
-    text-align: center;
-    margin-top: 150px;
-    letter-spacing: 10px;
-    font-family: 'YeolrinGothic-Bold';
-  }
-  .Join_formbox{
-    background-color: #ccc;
-    margin: 100px auto 0;
-    height: 500px;
-    width: 800px;
-    padding-top: 70px;
-    box-sizing: border-box;
-    .Join_form{
-      width: 600px;
-      margin: 0 auto;
-      #Join_namebox,
-      #Join_idbox,
-      #Join_pwbox,
-      #Join_positionbox{
-        margin-bottom: 30px;
-      }
-      .Join_btnbox{
-        margin-top: 70px;
-        .Join_btnsub,
-        .Join_btnres{
-          display: inline-block;
-          background-color: $ee;
-          width: calc(50% - 3px);
-          border: 0;
-          &:hover {
-            background-color: rgb(131, 129, 129);
-          }
-        }
-        .Join_btnsub{
-          margin-right: 3px;
-        }
-        .Join_btnres{}
-      }
-    }
-  }
-}
-// Join.vue
+// // Join.vue
+// #Join_wrap{
+//   width: $wi;
+//   margin: $mr;
+//   h3{
+//     font-size: 3rem;
+//     text-align: center;
+//     margin-top: 150px;
+//     letter-spacing: 10px;
+//     font-family: 'YeolrinGothic-Bold';
+//   }
+//   .Join_formbox{
+//     background-color: #ccc;
+//     margin: 100px auto 0;
+//     height: 500px;
+//     width: 800px;
+//     padding-top: 70px;
+//     box-sizing: border-box;
+//     .Join_form{
+//       width: 600px;
+//       margin: 0 auto;
+//       #Join_namebox,
+//       #Join_idbox,
+//       #Join_pwbox,
+//       #Join_positionbox{
+//         margin-bottom: 30px;
+//       }
+//       .Join_btnbox{
+//         margin-top: 70px;
+//         .Join_btnsub,
+//         .Join_btnres{
+//           display: inline-block;
+//           background-color: $ee;
+//           width: calc(50% - 3px);
+//           border: 0;
+//           &:hover {
+//             background-color: rgb(131, 129, 129);
+//           }
+//         }
+//         .Join_btnsub{
+//           margin-right: 3px;
+//         }
+//         .Join_btnres{
+//         }
+//       }
+//     }
+//   }
+// }
+// // Join.vue
