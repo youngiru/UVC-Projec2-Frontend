@@ -54,10 +54,10 @@ export default {
 
       /* RestAPI 호출 */
 
-      api.post('/serverApi/devices').then(response => {
-        const insertedResult = response && response.insertedId
-        context.commit('setInsertedResult', insertedResult)
-      })
+      // api.post('/serverApi/devices').then(response => {
+      //   const insertedResult = response && response.insertedId
+      //   context.commit('setInsertedResult', insertedResult)
+      // })
     },
     // 사용자정보 초기화
     actDeviceInit(context, payload) {
@@ -73,10 +73,10 @@ export default {
       context.commit('setDevice', { ...stateInit.Device })
 
       /* RestAPI 호출 */
-      api.get('/serverApi/devices/${payload}').then(response => {
-        const device = response && response.device
-        context.commit('setDevice', device)
-      })
+      // api.get('/serverApi/devices/${payload}').then(response => {
+      //   const device = response && response.device
+      //   context.commit('setDevice', device)
+      // })
     },
     // 사용자 수정
     actDeviceUpdate(context, payload) {
@@ -84,10 +84,10 @@ export default {
       context.commit('setUpdatedResult', null)
 
       /* RestAPI 호출 */
-      api.put('/serverApi/devices/${payload}').then(response => {
-        const updatedResult = response && response.updatedCount
-        context.commit('setUpdatedResult', updatedResult)
-      })
+      // api.put('/serverApi/devices/${payload}').then(response => {
+      //   const updatedResult = response && response.updatedCount
+      //   context.commit('setUpdatedResult', updatedResult)
+      // })
     }
   }
 }

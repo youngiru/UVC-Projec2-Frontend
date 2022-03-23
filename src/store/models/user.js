@@ -13,7 +13,8 @@ const stateInit = {
     role: null,
     active: null,
     createdAt: null,
-    updatedAt: null
+    updatedAt: null,
+    btn: null
   }
 }
 
@@ -59,34 +60,35 @@ export default {
 
       /* RestAPI 호출 */
 
-      api.post('/serverApi/users').then(response => {
-        const insertedResult = response && response.insertedId
-        context.commit('setInsertedResult', insertedResult)
-      })
+      // api.post('/serverApi/users').then(response => {
+      //   const insertedResult = response && response.insertedId
+      //   context.commit('setInsertedResult', insertedResult)
+      // })
     },
     // 사용자 리스트 조회
     actUserList(context, payload) {
-      /* 
       const userList = [
         {
           id: 1,
-          userid: 'kim123',
-          password: '123123',
           name: '김영일',
-          rank: '팀장',
+          userid: 'kim456',
+          password: '123123',
+          position: '팀장',
           email: 'kim123@email.com',
           phone: '010-0123-4567',
           role: 'leader',
           active: 'true',
           createdAt: '2022-03-01T00:00:00.000Z',
-          updatedAt: null
+          updatedAt: null,
+          btn: ''
         }
       ]
-      */
-      api.get('/serverApi/users').then(response => {
-        const userList = response && response.data
-        context.commit('setUserList', userList)
-      })
+      context.commit('setUserList', userList)
+
+      // api.get('/serverApi/users').then(response => {
+      //   const userList = response && response.data
+      //   context.commit('setUserList', userList)
+      // })
     },
     // 사용자정보 초기화
     actUserInit(context, payload) {
@@ -102,10 +104,10 @@ export default {
       context.commit('setUser', { ...stateInit.User })
 
       /* RestAPI 호출 */
-      api.get('/serverApi/users/${payload}').then(response => {
-        const user = response && response.user
-        context.commit('setUser', user)
-      })
+      // api.get('/serverApi/users/${payload}').then(response => {
+      //   const user = response && response.user
+      //   context.commit('setUser', user)
+      // })
     },
     // 사용자 수정
     actUserUpdate(context, payload) {
@@ -113,10 +115,10 @@ export default {
       context.commit('setUpdatedResult', null)
 
       /* RestAPI 호출 */
-      api.put('/serverApi/users/${payload}').then(response => {
-        const updatedResult = response && response.updatedCount
-        context.commit('setUpdatedResult', updatedResult)
-      })
+      // api.put('/serverApi/users/${payload}').then(response => {
+      //   const updatedResult = response && response.updatedCount
+      //   context.commit('setUpdatedResult', updatedResult)
+      // })
     }
   }
 }

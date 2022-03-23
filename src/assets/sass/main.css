@@ -48,6 +48,32 @@ html {
   color: #000;
 }
 
+#Admin_header_wrap {
+  background-color: #ccc;
+}
+
+#Admin_header_wrap .Admin_header_con {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+#Admin_header_wrap .Admin_header_con h2 {
+  font-size: 2rem;
+  font-family: 'YeolrinGothic-Bold';
+  line-height: 1.8;
+  margin-top: 10px;
+}
+
+#Admin_header_wrap .Admin_header_con .Admin_main_box_co {
+  margin-top: 35px;
+}
+
+#Admin_header_wrap .Admin_header_con .Admin_main_box_co .Admin_header_nav {
+  font-size: 1.3rem;
+  padding: 0;
+  line-height: 2;
+}
+
 #Login_wrap {
   width: 1280px;
   margin: 0 auto;
@@ -91,59 +117,54 @@ html {
   font-size: 1.3rem;
 }
 
-#Join_wrap {
+#Admin_main_wrap .Admin_main_header {
+  background-color: #ccc;
+}
+
+#Admin_main_wrap .Admin_main_header h2 {
+  width: 1280px;
+  margin: 0 auto;
+  font-size: 2.5rem;
+  font-family: 'YeolrinGothic-Bold';
+  line-height: 1.8;
+}
+
+#Admin_main_wrap .Admin_main_box {
   width: 1280px;
   margin: 0 auto;
 }
 
-#Join_wrap h3 {
-  font-size: 3rem;
-  text-align: center;
-  margin-top: 150px;
-  letter-spacing: 10px;
+#Admin_main_wrap .Admin_main_box .Admin_main_box_co {
+  margin-top: 25%;
+}
+
+#Admin_main_wrap .Admin_main_box .Admin_main_box_co .Admin_main_text {
+  cursor: pointer;
+  font-size: 1.8rem;
   font-family: 'YeolrinGothic-Bold';
-}
-
-#Join_wrap .Join_formbox {
+  text-align: center;
+  height: 270px;
+  line-height: 280px;
   background-color: #ccc;
-  margin: 100px auto 0;
-  height: 500px;
-  width: 800px;
-  padding-top: 70px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  margin-right: 15px;
 }
 
-#Join_wrap .Join_formbox .Join_form {
-  width: 600px;
-  margin: 0 auto;
+#Admin_main_wrap .Admin_main_box .Admin_main_box_co .Admin_main_text:last-child {
+  margin-right: 0;
 }
 
-#Join_wrap .Join_formbox .Join_form #Join_namebox,
-#Join_wrap .Join_formbox .Join_form #Join_idbox,
-#Join_wrap .Join_formbox .Join_form #Join_pwbox,
-#Join_wrap .Join_formbox .Join_form #Join_positionbox {
-  margin-bottom: 30px;
+#Admin_user_wrap h3 {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 50px;
 }
 
-#Join_wrap .Join_formbox .Join_form .Join_btnbox {
-  margin-top: 70px;
+.Admin_user_tablebox {
+  width: 1280px;
+  margin: 70px auto 0;
 }
 
-#Join_wrap .Join_formbox .Join_form .Join_btnbox .Join_btnsub,
-#Join_wrap .Join_formbox .Join_form .Join_btnbox .Join_btnres {
-  display: inline-block;
-  background-color: #5e5e5e;
-  width: calc(50% - 3px);
-  border: 0;
-}
-
-#Join_wrap .Join_formbox .Join_form .Join_btnbox .Join_btnsub:hover,
-#Join_wrap .Join_formbox .Join_form .Join_btnbox .Join_btnres:hover {
-  background-color: #838181;
-}
-
-#Join_wrap .Join_formbox .Join_form .Join_btnbox .Join_btnsub {
-  margin-right: 3px;
+.Admin_user_tablebox table tr td:last-child {
+  width: 20%;
 }
 /*# sourceMappingURL=main.css.map */

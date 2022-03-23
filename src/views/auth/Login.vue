@@ -2,7 +2,7 @@
   <div id="Login_wrap">
     <h3>로그인</h3>
     <div class="Login_inform">
-      <b-form v-if="show" class="Login_informbox" @submit="onSubmit">
+      <b-form v-if="show" class="Login_informbox">
         <b-form-group id="Login_idbox" label-for="Login_id">
           <b-form-input
             id="Login_id"
@@ -22,7 +22,7 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-button type="submit" variant="primary" class="Login_btn">로그인</b-button>
+        <b-button type="submit" variant="primary" class="Login_btn" @click="onSubmit">로그인</b-button>
       </b-form>
     </div>
   </div>
@@ -45,6 +45,9 @@ export default {
     tokenUser() {
       return this.$store.getters.tokenUser
     },
+    loading() {
+      return this.$store.getters.TokenLoading
+    },
     error() {
       return this.$store.getters.tokenError
     }
@@ -53,6 +56,7 @@ export default {
     tokenUser(value) {
       if (value && value.id && value.id > 0) {
         // 로그인이 완료된 상황
+        console.log('value', value)
         this.$router.push('/admin') // 메인페이지 이동
       }
     },
@@ -77,7 +81,7 @@ export default {
 
       if (expDate && expDate >= today) {
         // 토큰이 유효한 경우
-        this.$router.push('/admin') // 메인 페이지 이동
+        console.log('test')
       } else {
         // 토큰이 만료된 경우
         window.localStorage.removeItem('token') // 토큰 삭제
@@ -86,7 +90,9 @@ export default {
   },
   methods: {
     onSubmit() {
+      console.log('test2')
       this.$store.dispatch('authLogin', { userid: this.form.userid, password: this.form.password })
+      this.$router.push('/admin')
     }
   }
 }

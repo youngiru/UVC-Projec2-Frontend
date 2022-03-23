@@ -51,6 +51,30 @@ html{
 }
 // 기본설정
 
+// Adminheader.vue
+#Admin_header_wrap{
+  background-color: #ccc;
+  .Admin_header_con{
+    width: $wi;
+    margin: $mr;
+    h2{
+      font-size: 2rem;
+      font-family: 'YeolrinGothic-Bold';
+      line-height: 1.8;
+      margin-top: 10px;
+    }
+    .Admin_main_box_co{
+      margin-top: 35px;
+      .Admin_header_nav{
+        font-size: 1.3rem;
+        padding: 0;
+        line-height: 2;
+      }
+    }
+  }
+}
+// Adminheader.vue
+
 // Login.vue
 #Login_wrap{
   width: $wi;
@@ -139,3 +163,61 @@ html{
 //   }
 // }
 // // Join.vue
+
+// Admin/main.vue
+#Admin_main_wrap{
+  .Admin_main_header{
+    background-color: #ccc;
+    h2{
+      width: $wi;
+      margin: $mr;
+      font-size: 2.5rem;
+      font-family: 'YeolrinGothic-Bold';
+      line-height: 1.8;
+    }
+  }
+  .Admin_main_box{
+    width: $wi;
+    margin: $mr;
+    .Admin_main_box_co{
+      margin-top: 25%;
+      .Admin_main_text{
+        cursor: pointer;
+        font-size: 1.8rem;
+        font-family: 'YeolrinGothic-Bold';
+        text-align: center;
+        height: 270px;
+        line-height: 280px;
+        background-color: #ccc;
+        margin-right: 15px;
+        &:last-child{
+          margin-right: 0;
+        }
+    }
+    }
+  }
+}
+// Admin/main.vue
+
+// Admin/user.vue
+#Admin_user_wrap{
+  h3{
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 50px;
+  }
+}
+.Admin_user_tablebox{
+  width: $wi;
+  margin: 70px auto 0;
+  table{
+    tr{
+      td{
+        &:last-child{
+          width: 20%;
+        }
+      }
+    }
+  }
+}
+// Admin/user.vue

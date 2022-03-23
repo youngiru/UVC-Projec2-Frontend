@@ -17,8 +17,12 @@ const routes = [
         component: () => import('../views/admin'),
         children: [
           {
-            path: 'admin/main',
+            path: '/admin',
             component: () => import('../views/admin/main.vue')
+          },
+          {
+            path: '/admin/user',
+            component: () => import('../views/admin/user.vue')
           }
         ]
       },
@@ -35,10 +39,6 @@ const routes = [
       {
         path: '/dashboard',
         component: () => import('../views/dashboard')
-      },
-      {
-        path: '/user',
-        component: () => import('../views/user')
       },
       {
         path: '/device',
