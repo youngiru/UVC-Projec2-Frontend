@@ -49,7 +49,7 @@ html {
 }
 
 #Admin_header_wrap {
-  background-color: #ccc;
+  background-color: #474747;
 }
 
 #Admin_header_wrap .Admin_header_con {
@@ -62,6 +62,8 @@ html {
   font-family: 'YeolrinGothic-Bold';
   line-height: 1.8;
   margin-top: 10px;
+  color: #dbdbdb;
+  cursor: pointer;
 }
 
 #Admin_header_wrap .Admin_header_con .Admin_main_box_co {
@@ -72,6 +74,8 @@ html {
   font-size: 1.3rem;
   padding: 0;
   line-height: 2;
+  color: #dbdbdb;
+  cursor: pointer;
 }
 
 #Login_wrap {
@@ -165,6 +169,21 @@ html {
 }
 
 .Admin_user_tablebox table tr td:last-child {
+  width: 20%;
+}
+
+#Admin_device_wrap h3 {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 50px;
+}
+
+.Admin_device_tablebox {
+  width: 1280px;
+  margin: 70px auto 0;
+}
+
+.Admin_device_tablebox table tr td:last-child {
   width: 20%;
 }
 /*# sourceMappingURL=main.css.map */

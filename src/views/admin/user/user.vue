@@ -8,8 +8,8 @@
       </b-col>
       <b-table striped hover :items="userList" :fields="fields" style="text-align: center">
         <template #cell(btn)="row">
-          <b-button size="sm" variant="dark" class="mr-2" @click="row.item.id">수정</b-button>
-          <b-button size="sm" variant="dark" class="mr-2" @click="row.item.id">삭제</b-button>
+          <b-button size="sm" variant="dark" class="mr-2" @click="onClickEdit(row.item.id)">수정</b-button>
+          <b-button size="sm" variant="dark" class="mr-2" @click="onClickDelete(row.item.id)">삭제</b-button>
         </template>
       </b-table>
     </div>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Header from '../../components/layout/Adminheader.vue'
+import Header from '../../../components/layout/Adminheader.vue'
 import inform from './userinform.vue'
 
 export default {
@@ -43,7 +43,7 @@ export default {
           label: 'ID'
         },
         {
-          key: 'position',
+          key: 'rank',
           label: '직급'
         },
         {
@@ -51,15 +51,6 @@ export default {
           label: '비고'
         }
       ]
-      // item: [
-      //   {
-      //     id: 1,
-      //     name: '김영일',
-      //     userid: 'kim123',
-      //     position: '팀장',
-      //     btn: ''
-      //   }
-      // ]
     }
   },
   computed: {
@@ -79,7 +70,6 @@ export default {
   watch: {
     insertedResult(value) {
       // 등록 후 처리
-
       if (value !== null) {
         if (value > 0) {
           // 등록이 성공한 경우

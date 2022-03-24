@@ -18,7 +18,6 @@
             v-model="user.password"
             type="password"
           ></b-form-input>
-          <b-button v-if="inputMode === 'update'" variant="danger">비밀번호 변경</b-button>
         </b-form-group>
         <b-form-group label="직급" label-for="rank" label-cols="3">
           <b-form-select id="rank" v-model="user.rank" :options="userRank.options"> </b-form-select>
@@ -31,9 +30,6 @@
         </b-form-group>
         <b-form-group label="전화번호" label-for="phone" label-cols="3">
           <b-form-input id="phone" v-model="user.phone"></b-form-input>
-        </b-form-group>
-        <b-form-group v-if="inputMode === 'update'" label="등록일" label-for="createdAt" label-cols="3">
-          <b-form-input id="createdAt" :value="getCreatedAt" disabled></b-form-input>
         </b-form-group>
       </div>
     </b-modal>
@@ -86,19 +82,15 @@ export default {
     getTitle() {
       let title = ''
       if (this.inputMode === 'insert') {
-        title = '사용자정보 입력'
+        title = '등록'
       } else if (this.inputMode === 'update') {
-        title = '사용자정보 수정'
+        title = '수정'
       }
 
       return title
     },
     getCreatedAt() {
       return this.user.createdAt && this.user.createdAt.substring(0, 10)
-    },
-    departmentList() {
-      // 부서정보 출력
-      return this.$store.getters.DepartmentList
     }
   },
   watch: {
@@ -114,8 +106,6 @@ export default {
     this.user = { ...this.infoData }
 
     this.setDefaultValues() // 기본값 세팅
-
-    this.$store.dispatch('actDepartmentList') // 부서정보 조회
   },
   methods: {
     onSubmit() {
@@ -139,4 +129,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style src="@/assets/sass/main.css"></style>

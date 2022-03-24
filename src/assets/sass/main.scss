@@ -53,7 +53,7 @@ html{
 
 // Adminheader.vue
 #Admin_header_wrap{
-  background-color: #ccc;
+  background-color: #474747;
   .Admin_header_con{
     width: $wi;
     margin: $mr;
@@ -62,6 +62,8 @@ html{
       font-family: 'YeolrinGothic-Bold';
       line-height: 1.8;
       margin-top: 10px;
+      color: #dbdbdb;
+      cursor: pointer;
     }
     .Admin_main_box_co{
       margin-top: 35px;
@@ -69,6 +71,8 @@ html{
         font-size: 1.3rem;
         padding: 0;
         line-height: 2;
+        color: #dbdbdb;
+        cursor: pointer;
       }
     }
   }
@@ -221,3 +225,26 @@ html{
   }
 }
 // Admin/user.vue
+
+// Admin/device.vue
+#Admin_device_wrap{
+  h3{
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 50px;
+  }
+}
+.Admin_device_tablebox{
+  width: $wi;
+  margin: 70px auto 0;
+  table{
+    tr{
+      td{
+        &:last-child{
+          width: 20%;
+        }
+      }
+    }
+  }
+}
+// Admin/device.vue

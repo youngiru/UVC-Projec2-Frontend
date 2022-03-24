@@ -81,7 +81,6 @@ export default {
 
       if (expDate && expDate >= today) {
         // 토큰이 유효한 경우
-        console.log('test')
       } else {
         // 토큰이 만료된 경우
         window.localStorage.removeItem('token') // 토큰 삭제
@@ -90,7 +89,6 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('test2')
       this.$store.dispatch('authLogin', { userid: this.form.userid, password: this.form.password })
       this.$router.push('/admin')
     }

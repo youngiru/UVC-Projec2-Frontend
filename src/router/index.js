@@ -22,7 +22,11 @@ const routes = [
           },
           {
             path: '/admin/user',
-            component: () => import('../views/admin/user.vue')
+            component: () => import('../views/admin/user/user.vue')
+          },
+          {
+            path: '/admin/device',
+            component: () => import('../views/admin/device/device.vue')
           }
         ]
       },
@@ -33,6 +37,10 @@ const routes = [
           {
             path: '/auth/join',
             component: () => import('../views/auth/Join.vue')
+          },
+          {
+            path: '/auth/logout',
+            component: () => import('../views/auth/Logout.vue')
           }
         ]
       },
