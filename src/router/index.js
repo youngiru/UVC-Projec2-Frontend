@@ -13,20 +13,20 @@ const routes = [
         component: () => import('../views/auth/Login.vue')
       },
       {
-        path: '/admin',
-        component: () => import('../views/admin'),
+        path: '/leader',
+        component: () => import('../views/leader'),
         children: [
           {
-            path: '/admin',
-            component: () => import('../views/admin/main.vue')
+            path: '/leader',
+            component: () => import('../views/leader/main.vue')
           },
           {
-            path: '/admin/user',
-            component: () => import('../views/admin/user/user.vue')
+            path: '/leader/user',
+            component: () => import('../views/leader/user/user.vue')
           },
           {
-            path: '/admin/device',
-            component: () => import('../views/admin/device/device.vue')
+            path: '/leader/device',
+            component: () => import('../views/leader/device/device.vue')
           }
         ]
       },
@@ -45,12 +45,18 @@ const routes = [
         ]
       },
       {
-        path: '/dashboard',
-        component: () => import('../views/dashboard')
-      },
-      {
-        path: '/device',
-        component: () => import('../views/device')
+        path: '/control',
+        component: () => import('../views/control'),
+        children: [
+          {
+            path: '/control',
+            component: () => import('../views/control/main.vue')
+          },
+          {
+            path: '/control/dashboard',
+            component: () => import('../views/control/dashboard.vue')
+          }
+        ]
       }
     ]
   },

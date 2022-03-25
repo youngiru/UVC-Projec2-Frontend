@@ -1,12 +1,12 @@
 <template>
-  <div id="Admin_user_wrap">
+  <div id="leader_device_wrap">
     <app-header />
-    <h3>사용자 관리</h3>
-    <div class="Admin_user_tablebox">
+    <h3>기기 관리</h3>
+    <div class="leader_device_tablebox">
       <b-col style="text-align: right; padding: 0">
         <b-button variant="dark" style="margin-bottom: 10px" @click="onClickAddNew">추가</b-button>
       </b-col>
-      <b-table striped hover :items="userList" :fields="fields" style="text-align: center">
+      <b-table striped hover :items="deviceList" :fields="fields" style="text-align: center">
         <template #cell(btn)="row">
           <b-button size="sm" variant="dark" class="mr-2" @click="onClickEdit(row.item.id)">수정</b-button>
           <b-button size="sm" variant="dark" class="mr-2" @click="onClickDelete(row.item.id)">삭제</b-button>
@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import Header from '../../../components/layout/Adminheader.vue'
-import inform from './userinform.vue'
+import Header from '../../../components/layout/leaderheader.vue'
+import inform from './deviceinform.vue'
 
 export default {
   components: {
@@ -36,15 +36,15 @@ export default {
         },
         {
           key: 'name',
-          label: '이름'
+          label: '기기명'
         },
         {
-          key: 'userid',
-          label: 'ID'
+          key: 'location',
+          label: '설치장소'
         },
         {
-          key: 'rank',
-          label: '직급'
+          key: 'description',
+          label: '상세정보'
         },
         {
           key: 'btn',
@@ -54,17 +54,17 @@ export default {
     }
   },
   computed: {
-    userList() {
-      return this.$store.getters.UserList
+    deviceList() {
+      return this.$store.getters.DeviceList
     },
     insertedResult() {
-      return this.$store.getters.UserInsertedResult
+      return this.$store.getters.DeviceInsertedResult
     },
     updatedResult() {
-      return this.$store.getters.UserUpdatedResult
+      return this.$store.getters.DeviceUpdatedResult
     },
     deletedResult() {
-      return this.$store.getters.UserDeletedResult
+      return this.$store.getters.DeviceDeletedResult
     }
   },
   watch: {
@@ -82,7 +82,7 @@ export default {
           })
 
           // 2. 리스트 재 검색
-          this.searchUserList()
+          this.searchDeviceList()
         } else {
           // 등록이 실패한 경우
           this.$bvToast.toast('등록이 실패하였습니다.', {
@@ -107,7 +107,7 @@ export default {
           })
 
           // 2. 리스트 재 검색
-          this.searchUserList()
+          this.searchDeviceList()
         } else {
           // 수정이 실패한 경우
           this.$bvToast.toast('수정이 실패하였습니다.', {
@@ -132,7 +132,7 @@ export default {
           })
 
           // 2. 리스트 재 검색
-          this.searchUserList()
+          this.searchDeviceList()
         } else {
           // 삭제가 실패한 경우
           this.$bvToast.toast('삭제가 실패하였습니다.', {
@@ -145,41 +145,41 @@ export default {
     }
   },
   created() {
-    this.searchUserList()
+    this.searchDeviceList()
   },
   methods: {
-    searchUserList() {
-      this.$store.dispatch('actUserList')
+    searchDeviceList() {
+      this.$store.dispatch('actDeviceList')
     },
     onClickAddNew() {
       // 신규등록
 
       // 1. 입력모드 설정
-      this.$store.dispatch('actUserInputMode', 'insert')
+      this.$store.dispatch('actDeviceInputMode', 'insert')
 
       // 2. 상세정보 초기화
-      this.$store.dispatch('actUserInit')
+      this.$store.dispatch('actDeviceInit')
 
       // 3. 모달 출력
-      this.$bvModal.show('modal-user-inform')
+      this.$bvModal.show('modal-device-inform')
     },
     onClickEdit(id) {
       // (수정을 위한)상세정보
 
       // 1. 입력모드 설정
-      this.$store.dispatch('actUserInputMode', 'update')
+      this.$store.dispatch('actDeviceInputMode', 'update')
 
       // 2. 상세정보 호출
-      this.$store.dispatch('actUserInfo', id)
+      this.$store.dispatch('actDeviceInfo', id)
 
       // 3. 모달 출력
-      this.$bvModal.show('modal-user-inform')
+      this.$bvModal.show('modal-device-inform')
     },
     onClickDelete(id) {
       // 삭제
       this.$bvModal.msgBoxConfirm('삭제 하시겠습니까?').then(value => {
         if (value) {
-          this.$store.dispatch('actUserDelete', id)
+          this.$store.dispatch('actDeviceDelete', id)
         }
       })
     }

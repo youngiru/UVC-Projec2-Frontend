@@ -57,7 +57,7 @@ export default {
       if (value && value.id && value.id > 0) {
         // 로그인이 완료된 상황
         console.log('value', value)
-        this.$router.push('/admin') // 메인페이지 이동
+        this.$router.push('/leader') // 메인페이지 이동
       }
     },
     error(errValue) {
@@ -90,7 +90,7 @@ export default {
   methods: {
     onSubmit() {
       this.$store.dispatch('authLogin', { userid: this.form.userid, password: this.form.password })
-      this.$router.push('/admin')
+      this.$router.push('/leader')
     }
   }
 }
