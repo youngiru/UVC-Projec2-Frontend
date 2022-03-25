@@ -1,11 +1,11 @@
 <template>
-  <div id="webgl">
+  <div id="webgl'">
     <edukit />
   </div>
 </template>
 
 <script>
-import edukit from './index.vue'
+import edukit from './views/index.vue'
 
 export default {
   name: 'Webgl',

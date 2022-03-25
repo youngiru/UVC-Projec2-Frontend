@@ -7,20 +7,18 @@ import { Scene } from './assets/scene'
 import { Renderer } from './assets/renderer'
 import { Control } from './assets/control'
 import { Render } from './assets/render'
+import { Event } from './assets/event'
 
 import { Gui } from './plugins/gui'
 
-import * as THREE from 'three'
-
-export default element => {
-  element.style = 'width:500px'
+export default async element => {
+  element.style.width = '700px'
+  element.style.height = '700px'
 
   // Scene Setting
-  let scene = new Scene()
+  let scene = new Scene('edukit')
   let cameraElement = scene.camera.cameraElement
-  let lightElement = scene.light.lightElement
   let sceneElement = scene.sceneElement
-  scene.setLight()
 
   // Renderer Setting
   let renderer = new Renderer(element)
@@ -36,6 +34,7 @@ export default element => {
   render.element = element
   render.controls = controlElement
   render.scene = sceneElement
+  render.edukit = scene.resource.edukit
   render.camera = cameraElement
   render.renderer = rendererElement
 
@@ -64,20 +63,17 @@ export default element => {
   // Dat.GUI Setting
   let gui = new Gui(element)
   let options = {
-    LightX: 0,
-    LightY: 0,
-    LightZ: 0,
-
-    CameraHelper: false
+    yAxis: -27,
+    xAxis: -4375
   }
   gui.addOptions(options)
-  gui.addFolder('Light')
+  gui.addFolder('Example')
 
-  gui.addLight('CameraHelper', null, null, null, scene)
+  gui.addExample('yAxis', -27, 1301828, scene.resource.edukit)
+  gui.addExample('xAxis', -4375, 25021563, scene.resource.edukit)
 
-  gui.addLight('LightX', 0, 50, lightElement.position)
-  gui.addLight('LightY', 0, 50, lightElement.position)
-  gui.addLight('LightZ', 0, 50, lightElement.position)
+  // MQTT Event Setting
+  new Event(element, scene.resource.edukit)
 
   return element
 }

@@ -55,42 +55,12 @@ const routes = [
           {
             path: '/control/dashboard',
             component: () => import('../views/control/dashboard.vue')
-          },
-          {
-            path: '/control/webgl',
-            component: () => import('../views/control/webgl'),
-            children: [
-              {
-                path: '/control/webgl',
-                component: () => import('../views/control/webgl/webgl.vue')
-              },
-              {
-                path: '/control/webgl',
-                component: () => import('../views/control/webgl/webglCamera.vue')
-              },
-              {
-                path: '/control/webgl',
-                component: () => import('../views/control/webgl/webglControl.vue')
-              },
-              {
-                path: '/control/webgl',
-                component: () => import('../views/control/webgl/webglExample.vue')
-              },
-              {
-                path: '/control/webgl',
-                component: () => import('../views/control/webgl/webglLight.vue')
-              },
-              {
-                path: '/control/webgl',
-                component: () => import('../views/control/webgl/webglRender.vue')
-              },
-              {
-                path: '/control/webgl',
-                component: () => import('../views/control/webgl/webglScene.vue')
-              }
-            ]
           }
         ]
+      },
+      {
+        path: '/webgl',
+        component: () => import('../views/webgl/Webgl.vue')
       }
     ]
   },

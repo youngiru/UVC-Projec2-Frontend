@@ -1,9 +1,9 @@
 <template>
-  <hello-edukit></hello-edukit>
+  <helloEdukit />
 </template>
 
 <script>
-import Three from './js/example'
+import Three from '../js/example'
 
 let helloEdukit = {
   template: '<div ref="webgl"></div>',
@@ -13,9 +13,11 @@ let helloEdukit = {
 }
 
 export default {
-  name: 'WebglExample',
+  name: 'Edukit',
   components: {
     helloEdukit
   }
 }
 </script>
+
+<style scoped></style>
