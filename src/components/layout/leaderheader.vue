@@ -10,7 +10,7 @@
             <b-row>
               <b-col class="leader_header_nav" @click="$router.push('/leader/user')">사용자 관리</b-col>
               <b-col class="leader_header_nav" @click="$router.push('/leader/device')">기기 관리</b-col>
-              <b-col class="leader_header_nav" @click="$router.push('/control')">기기 제어</b-col>
+              <b-col class="leader_header_nav" @click="$router.push('/control/dashboard')">기기 제어</b-col>
               <b-col class="leader_header_nav" @click="$router.push('/auth/logout')">로그아웃</b-col>
             </b-row>
           </b-container>

@@ -17,6 +17,14 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
         exclude: /node_modules/
       }
+      // webpack.config.js
+      // {
+      //   resolve: {
+      //     alias: {
+      //       vue: 'vue/dist/vue.js'
+      //     }
+      //   }
+      // }
     ]
   },
   devtool: 'source-map',
