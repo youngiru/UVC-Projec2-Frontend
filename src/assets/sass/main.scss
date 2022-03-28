@@ -299,3 +299,28 @@ html{
   }
 }
 // control/controlheader.vue
+
+// factorycontrol.vue
+table{
+  thead{
+    background-color: #ccc;
+    tr{
+      th{
+        &:first-child{
+          width: 15%;
+        }
+        width: 45%;
+      }
+    }
+  }
+}
+// factorycontrol.vue
+
+// workhistory.vue
+#chartbox{
+  width: 600px;
+  margin: 100px auto 0;
+  vertical-align: top;
+}
+
+// workhistory.vue

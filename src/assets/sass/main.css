@@ -240,4 +240,22 @@ html {
   color: #000;
   font-size: 1.2rem;
 }
+
+table thead {
+  background-color: #ccc;
+}
+
+table thead tr th {
+  width: 45%;
+}
+
+table thead tr th:first-child {
+  width: 15%;
+}
+
+#chartbox {
+  width: 600px;
+  margin: 100px auto 0;
+  vertical-align: top;
+}
 /*# sourceMappingURL=main.css.map */
