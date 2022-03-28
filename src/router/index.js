@@ -35,10 +35,6 @@ const routes = [
         component: () => import('../views/auth'),
         children: [
           {
-            path: '/auth/join',
-            component: () => import('../views/auth/Join.vue')
-          },
-          {
             path: '/auth/logout',
             component: () => import('../views/auth/Logout.vue')
           }
@@ -55,6 +51,14 @@ const routes = [
           {
             path: '/control/dashboard',
             component: () => import('../views/control/dashboard.vue')
+          },
+          {
+            path: '/control/workhistory',
+            component: () => import('../views/control/workhistory.vue')
+          },
+          {
+            path: '/control/factorycontrol',
+            component: () => import('../views/control/factorycontrol.vue')
           }
         ]
       },
