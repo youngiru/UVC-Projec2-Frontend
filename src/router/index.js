@@ -1,3 +1,4 @@
+import jwtDecode from 'jwt-decode'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 

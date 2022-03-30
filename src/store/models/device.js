@@ -1,4 +1,5 @@
 import api from '../apiUtil'
+import axios from 'axios'
 
 // 초기값 선언
 const stateInit = {
@@ -58,43 +59,38 @@ export default {
   actions: {
     // 기기 리스트 조회
     actDeviceList(context, payload) {
-      const deviceList = [
-        {
-          id: 1,
-          name: 'fdgdsfg',
-          location: 'gdsgf',
-          description: 'teste',
-          role: 'leader',
-          active: 'true',
-          createdAt: '2022-03-01T00:00:00.000Z',
-          updatedAt: null
-        }
-      ]
-      context.commit('setDeviceList', deviceList)
-
-      // api.get('/serverApi/devices').then(response => {
-      //   const deviceList = response && response.data
-      //   context.commit('setUserList', deviceList)
-      // })
+      // RestAPI 호출
+      api
+        .get('/serverApi/devices', { params: payload })
+        .then(response => {
+          const deviceList = response && response.data && response.data.rows
+          context.commit('setDeviceList', deviceList)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          console.error('DeviceList.error', error)
+          context.commit('setDeviceList', [])
+        })
     },
 
     // 기기 입력
     actDeviceInsert(context, payload) {
       // 상태값 초기화
       context.commit('setInsertedResult', null)
-
-      // 테스트 데이터 세팅
-      setTimeout(() => {
-        const insertedResult = 1
-        context.commit('setInsertedResult', insertedResult)
-      }, 300)
-
       /* RestAPI 호출 */
 
-      // api.post('/serverApi/devices').then(response => {
-      //   const insertedResult = response && response.insertedId
-      //   context.commit('setInsertedResult', insertedResult)
-      // })
+      axios
+        .post('/serverApi/devices', payload)
+        .then(response => {
+          const insertedResult = response && response.data && response.data.id
+          // console.log('insertedResult', insertedResult)
+          context.commit('setInsertedResult', insertedResult)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          console.error('DeviceInsert.error', error)
+          context.commit('setInsertedResult', -1)
+        })
     },
     // 기기정보 초기화
     actDeviceInit(context, payload) {
@@ -104,80 +100,55 @@ export default {
     actDeviceInputMode(context, payload) {
       context.commit('setInputMode', payload)
     },
-    // 사용자 상세정보 조회
+    // 상세정보 조회
     actDeviceInfo(context, payload) {
       // 상태값 초기화
       context.commit('setDevice', { ...stateInit.Device })
-
-      /* 테스트 데이터 세팅 */
-      setTimeout(() => {
-        const deviceList = [
-          {
-            id: 1,
-            name: 'fdgdsfg',
-            location: 'gdsgf',
-            description: 'teste',
-            role: 'leader',
-            active: 'true',
-            createdAt: '2022-03-01T00:00:00.000Z',
-            updatedAt: null
-          }
-        ]
-
-        let device = { ...stateInit.User }
-        for (let i = 0; i < deviceList.length; i += 1) {
-          if (payload === deviceList[i].id) {
-            device = { ...deviceList[i] }
-          }
-        }
-        context.commit('setDevice', device)
-      }, 300)
-
       /* RestAPI 호출 */
-      // api.get('/serverApi/devices/${payload}').then(response => {
-      //   const device = response && response.device
-      //   context.commit('setDevice', device)
-      // })
+      api
+        .get(`/serverApi/devices/${payload}`)
+        .then(response => {
+          const device = response && response.data
+          context.commit('setDevice', device)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          console.error('DeviceInfo.error', error)
+          context.commit('setDevice', -1)
+        })
     },
     // 기기 수정
     actDeviceUpdate(context, payload) {
       // 상태값 초기화
       context.commit('setUpdatedResult', null)
-
-      /* 테스트 데이터 세팅 */
-      setTimeout(() => {
-        const updatedResult = 1
-        context.commit('setUpdatedResult', updatedResult)
-      }, 300) // state값의 변화를 감지하기 위하여 일부러 지연 시켰다.
-
       /* RestAPI 호출 */
-      // api.put('/serverApi/devices/${payload}').then(response => {
-      //   const updatedResult = response && response.updatedCount
-      //   context.commit('setUpdatedResult', updatedResult)
-      // })
+      api
+        .put(`/serverApi/devices/${payload.id}`, payload)
+        .then(response => {
+          const updatedResult = response && response.data && response.data.updatedCount
+          context.commit('setUpdatedResult', updatedResult)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          console.error('DeviceUpdate.error', error)
+          context.commit('setUpdatedResult', -1)
+        })
     },
     actDeviceDelete(context, payload) {
       // 상태값 초기화
       context.commit('setDeletedResult', null)
-
-      /* 테스트 데이터 세팅 */
-      setTimeout(() => {
-        const deletedResult = 1
-        context.commit('setDeletedResult', deletedResult)
-      }, 300) // state값의 변화를 감지하기 위하여 일부러 지연 시켰다.
-
       /* RestAPI 호출 */
-      // api
-      //   .delete(`/serverApi/device/${payload}`)
-      //   .then(response => {
-      //     const deletedResult = response && response.data
-      //     context.commit('setDeletedResult', deletedResult)
-      //   })
-      //   .catch(error => {
-      //     // 에러인 경우 처리
-      //     console.error('DeviceDelete.error', error)
-      //     context.commit('setDeletedResult', -1)
-      //   })
+      api
+        .delete(`/serverApi/devices/${payload}`)
+        .then(response => {
+          const deletedResult = response && response.data && response.data.deletedCount
+          context.commit('setDeletedResult', deletedResult)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          console.error('DeviceDelete.error', error)
+          context.commit('setDeletedResult', -1)
+        })
     }
   }
 }

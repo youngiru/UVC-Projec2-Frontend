@@ -217,6 +217,13 @@ html{
   width: $wi;
   margin: 70px auto 0;
   table{
+    thead{
+      tr{
+        th{
+          width: calc(100% / 5) !important;
+        }
+      }
+    }
     tr{
       td{
         &:last-child{
@@ -240,6 +247,13 @@ html{
   width: $wi;
   margin: 70px auto 0;
   table{
+    thead{
+      tr{
+        th{
+          width: calc(100% / 5) !important;
+        }
+      }
+    }
     tr{
       td{
         &:last-child{

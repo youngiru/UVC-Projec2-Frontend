@@ -170,6 +170,10 @@ html {
   margin: 70px auto 0;
 }
 
+.leader_user_tablebox table thead tr th {
+  width: calc(100% / 5) !important;
+}
+
 .leader_user_tablebox table tr td:last-child {
   width: 20%;
 }
@@ -183,6 +187,10 @@ html {
 .leader_device_tablebox {
   width: 1280px;
   margin: 70px auto 0;
+}
+
+.leader_device_tablebox table thead tr th {
+  width: calc(100% / 5) !important;
 }
 
 .leader_device_tablebox table tr td:last-child {

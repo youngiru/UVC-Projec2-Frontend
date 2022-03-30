@@ -50,7 +50,10 @@ export default {
           key: 'btn',
           label: '비고'
         }
-      ]
+      ],
+      search: {
+        name: ''
+      }
     }
   },
   computed: {
@@ -149,7 +152,7 @@ export default {
   },
   methods: {
     searchDeviceList() {
-      this.$store.dispatch('actDeviceList')
+      this.$store.dispatch('actDeviceList', this.search)
     },
     onClickAddNew() {
       // 신규등록

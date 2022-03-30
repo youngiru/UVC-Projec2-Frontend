@@ -22,7 +22,7 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-button type="submit" variant="primary" class="Login_btn" @click="onSubmit">로그인</b-button>
+        <b-button href="#none" type="submit" variant="primary" class="Login_btn" @click="onSubmit">로그인</b-button>
       </b-form>
     </div>
   </div>
@@ -35,8 +35,8 @@ export default {
   data() {
     return {
       form: {
-        userid: '',
-        password: ''
+        userid: null,
+        password: null
       },
       show: true
     }
@@ -89,8 +89,8 @@ export default {
   },
   methods: {
     onSubmit() {
+      console.log(this.form.userid, this.form.password, 'here')
       this.$store.dispatch('authLogin', { userid: this.form.userid, password: this.form.password })
-      this.$router.push('/leader')
     }
   }
 }
