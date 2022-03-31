@@ -1,16 +1,19 @@
 <template>
   <div id="webgl'">
+    <app-header />
     <edukit />
   </div>
 </template>
 
 <script>
+import Header from '../../components/layout/controlheader.vue'
 import edukit from './views/index.vue'
 
 export default {
   name: 'Webgl',
   components: {
-    edukit
+    edukit,
+    'app-header': Header
   }
 }
 </script>

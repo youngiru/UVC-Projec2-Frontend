@@ -1,5 +1,6 @@
 import api from '../apiUtil'
 import jwtDecode from 'jwt-decode'
+import axios from 'axios'
 
 // 테스트용 토큰
 // {
@@ -18,6 +19,11 @@ const stateInit = {
     id: null,
     name: null,
     userid: null,
+    password: null,
+    rank: null,
+    email: null,
+    phone: null,
+    role: null,
     iat: null,
     exp: null
   }
@@ -37,6 +43,7 @@ export default {
   mutations: {
     setTokenUser(state, data) {
       state.TokenUser = data
+      // console.log('here', state.TokenUser)
     },
     setLoading(state, data) {
       state.Loading = data
@@ -64,10 +71,11 @@ export default {
       context.commit('clearError')
       context.commit('setLoading', true)
       /* RestApi 호출 */
-      api
+      axios
         .post('/serverApi/auth/login', payload)
         .then(response => {
           const token = response.headers.token
+          console.log('here', token)
           const decodedToken = jwtDecode(token)
           console.log('token', decodedToken)
           // 정상인 경우 처리
@@ -76,7 +84,7 @@ export default {
         })
         .catch(error => {
           // 에러인 경우 처리
-          console.error('here', error)
+          console.error('login', error)
           context.commit('setLoading', false)
           context.commit('setError', error)
         })
@@ -93,7 +101,7 @@ export default {
       // api 결과와 관계없이 로컬에서는 로그아웃 처리 함
 
       try {
-        await api.delete('/serverApi/auth/login') // await를 걸지 않으면 토큰삭제 후 전송될 수 있음
+        await api.delete('/serverApi/auth/logout') // await를 걸지 않으면 토큰삭제 후 전송될 수 있음
         context.commit('setLogout') // 로그아웃 처리
         window.localStorage.removeItem('token') // 토큰 삭제
       } catch (err) {
@@ -105,7 +113,7 @@ export default {
       // 토큰사용자 설정
       const decodedToken = jwtDecode(payload)
       context.commit('setTokenUser', decodedToken)
-      console.log('에라 모르겠다', payload)
+      // console.log('tokenUser', payload)
     }
   }
 }

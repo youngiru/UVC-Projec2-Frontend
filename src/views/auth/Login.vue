@@ -22,7 +22,15 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-button href="#none" type="submit" variant="primary" class="Login_btn" @click="onSubmit">로그인</b-button>
+        <b-button
+          href="#none"
+          type="submit"
+          variant="primary"
+          class="Login_btn"
+          @keyup.enter="onSubmit"
+          @click="onSubmit"
+          >로그인</b-button
+        >
       </b-form>
     </div>
   </div>
@@ -30,6 +38,7 @@
 
 <script>
 import jwtDecode from 'jwt-decode'
+import userVue from '../leader/user/user.vue'
 
 export default {
   data() {
@@ -43,7 +52,7 @@ export default {
   },
   computed: {
     tokenUser() {
-      return this.$store.getters.tokenUser
+      return this.$store.getters.TokenUser
     },
     loading() {
       return this.$store.getters.TokenLoading
@@ -54,10 +63,13 @@ export default {
   },
   watch: {
     tokenUser(value) {
-      if (value && value.id && value.id > 0) {
-        // 로그인이 완료된 상황
+      console.log('tokenUser', value.role)
+      if (value !== null && value.role === 'leader') {
         console.log('value', value)
+        // 로그인이 완료된 상황
         this.$router.push('/leader') // 메인페이지 이동
+      } else if (value !== null && value.role === 'member') {
+        this.$router.push('/control')
       }
     },
     error(errValue) {
@@ -89,7 +101,6 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log(this.form.userid, this.form.password, 'here')
       this.$store.dispatch('authLogin', { userid: this.form.userid, password: this.form.password })
     }
   }

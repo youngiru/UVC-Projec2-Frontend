@@ -1,4 +1,5 @@
 import api from '../apiUtil'
+import axios from 'axios'
 
 // 초기값 선언
 const stateInit = {
@@ -61,7 +62,6 @@ export default {
       api
         .get('/serverApi/users', { params: payload })
         .then(response => {
-          console.log('user', payload)
           const userList = response && response.data && response.data.rows
           context.commit('setUserList', userList)
         })
@@ -106,6 +106,7 @@ export default {
       api
         .get(`/serverApi/users/${payload}`)
         .then(response => {
+          console.log('user', payload)
           const user = response && response.data
           context.commit('setUser', user)
         })

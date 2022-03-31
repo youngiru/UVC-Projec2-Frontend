@@ -38,6 +38,10 @@ const routes = [
           {
             path: '/auth/logout',
             component: () => import('../views/auth/Logout.vue')
+          },
+          {
+            path: '/auth/mypage',
+            component: () => import('../views/auth/mypage.vue')
           }
         ]
       },

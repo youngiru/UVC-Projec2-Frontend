@@ -2,22 +2,14 @@
   <div>
     <b-modal id="modal-user-inform" :title="getTitle" @ok="onSubmit">
       <div>
-        <b-form-group v-if="inputMode === 'update'" label="id" label-for="code" label-cols="3">
-          <b-form-input id="id" v-model="user.id" disabled></b-form-input>
-        </b-form-group>
         <b-form-group label="이름" label-for="name" label-cols="3">
           <b-form-input id="name" v-model="user.name"></b-form-input>
         </b-form-group>
-        <b-form-group label="아이디" label-for="userid" label-cols="3">
+        <b-form-group v-if="inputMode === 'insert'" label="아이디" label-for="userid" label-cols="3">
           <b-form-input id="userid" v-model="user.userid"></b-form-input>
         </b-form-group>
-        <b-form-group label="비밀번호" label-for="password" label-cols="3">
-          <b-form-input
-            v-if="inputMode === 'insert'"
-            id="password"
-            v-model="user.password"
-            type="password"
-          ></b-form-input>
+        <b-form-group v-if="inputMode === 'insert'" label="비밀번호" label-for="password" label-cols="3">
+          <b-form-input id="password" v-model="user.password" type="password"></b-form-input>
         </b-form-group>
         <b-form-group label="직급" label-for="rank" label-cols="3">
           <b-form-select id="rank" v-model="user.rank" :options="userRank.options"> </b-form-select>
@@ -41,7 +33,6 @@ export default {
   data() {
     return {
       user: {
-        id: null,
         name: null,
         userid: null,
         password: null,
