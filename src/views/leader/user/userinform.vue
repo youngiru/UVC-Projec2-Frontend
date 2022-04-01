@@ -2,8 +2,12 @@
   <div>
     <b-modal id="modal-user-inform" :title="getTitle" @ok="onSubmit">
       <div>
-        <b-form-group label="이름" label-for="name" label-cols="3">
-          <b-form-input id="name" v-model="user.name"></b-form-input>
+        <b-form-group label="이름" label-for="name" label-cols="3" validated>
+          <b-form-input v-if="validation" id="name" v-model="user.name" :state="validation"></b-form-input>
+          <b-form-invalid-feedback :state="validation" class="error">
+            Your user ID must be 5-12 characters long.
+          </b-form-invalid-feedback>
+          <b-form-valid-feedback :state="validation" class="error"> Looks Good. </b-form-valid-feedback>
         </b-form-group>
         <b-form-group v-if="inputMode === 'insert'" label="아이디" label-for="userid" label-cols="3">
           <b-form-input id="userid" v-model="user.userid"></b-form-input>
@@ -82,6 +86,9 @@ export default {
     },
     getCreatedAt() {
       return this.user.createdAt && this.user.createdAt.substring(0, 10)
+    },
+    validation() {
+      return this.user.name.length > 3 && this.user.name.length < 10
     }
   },
   watch: {
@@ -115,6 +122,10 @@ export default {
       if (this.inputMode === 'insert') {
         this.user.role = this.userRole.default // 사용자 권한
       }
+    },
+    setName(value) {
+      this.user.name = value
+      this.$v.name.$touch()
     }
   }
 }
