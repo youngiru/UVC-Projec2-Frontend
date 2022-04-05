@@ -1,34 +1,107 @@
 <template>
   <div>
-    <b-modal id="modal-user-inform" :title="getTitle" @ok="onSubmit">
-      <div>
-        <b-form-group label="이름" label-for="name" label-cols="3" validated>
-          <b-form-input v-if="validation" id="name" v-model="user.name" :state="validation"></b-form-input>
-          <b-form-invalid-feedback :state="validation" class="error">
-            Your user ID must be 5-12 characters long.
-          </b-form-invalid-feedback>
-          <b-form-valid-feedback :state="validation" class="error"> Looks Good. </b-form-valid-feedback>
-        </b-form-group>
-        <b-form-group v-if="inputMode === 'insert'" label="아이디" label-for="userid" label-cols="3">
-          <b-form-input id="userid" v-model="user.userid"></b-form-input>
-        </b-form-group>
-        <b-form-group v-if="inputMode === 'insert'" label="비밀번호" label-for="password" label-cols="3">
-          <b-form-input id="password" v-model="user.password" type="password"></b-form-input>
-        </b-form-group>
-        <b-form-group label="직급" label-for="rank" label-cols="3">
-          <b-form-select id="rank" v-model="user.rank" :options="userRank.options"> </b-form-select>
-        </b-form-group>
-        <b-form-group label="권한" label-for="auth" label-cols="3">
-          <b-form-radio-group id="auth" v-model="user.role" :options="userRole.options" />
-        </b-form-group>
-        <b-form-group label="이메일" label-for="email" label-cols="3">
-          <b-form-input id="email" v-model="user.email"></b-form-input>
-        </b-form-group>
-        <b-form-group label="전화번호" label-for="phone" label-cols="3">
-          <b-form-input id="phone" v-model="user.phone"></b-form-input>
-        </b-form-group>
-      </div>
-    </b-modal>
+    <validation-observer ref="observer" v-slot="{ handleSubmit }">
+      <b-modal id="modal-user-inform" :title="getTitle" @submit.stop.prevent="handleSubmit(onSubmit)">
+        <div>
+          <validation-provider v-slot="validationContext" name="Name" :rules="{ required: true, min: 3 }">
+            <b-form-group label="이름" label-for="name" label-cols="3">
+              <b-form-input
+                id="name"
+                v-model="user.name"
+                name="name"
+                :state="getValidationState(validationContext)"
+                aria-describedby="input-1-live-feedback"
+              ></b-form-input>
+              <b-form-invalid-feedback id="input-1-live-feedback">
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+          <validation-provider v-slot="validationContext" name="Id" :rules="{ required: true }">
+            <b-form-group v-if="inputMode === 'insert'" label="아이디" label-for="userid" label-cols="3">
+              <b-form-input
+                id="userid"
+                v-model="user.userid"
+                :state="getValidationState(validationContext)"
+                aria-describedby="input-2-live-feedback"
+              ></b-form-input>
+              <b-form-invalid-feedback id="input-2-live-feedback">
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+          <validation-provider v-slot="validationContext" name="Password" :rules="{ required: true, min: 4 }">
+            <b-form-group v-if="inputMode === 'insert'" label="비밀번호" label-for="password" label-cols="3">
+              <b-form-input
+                id="password"
+                v-model="user.password"
+                type="password"
+                :state="getValidationState(validationContext)"
+                aria-describedby="input-3-live-feedback"
+              ></b-form-input>
+              <b-form-invalid-feedback id="input-3-live-feedback">
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+          <validation-provider v-slot="validationContext" name="Rank" :rules="{ required: true }">
+            <b-form-group label="직급" label-for="rank" label-cols="3">
+              <b-form-select
+                id="rank"
+                v-model="user.rank"
+                :options="userRank.options"
+                :state="getValidationState(validationContext)"
+                aria-describedby="input-4-live-feedback"
+              >
+              </b-form-select>
+              <b-form-invalid-feedback id="input-4-live-feedback">
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+          <validation-provider v-slot="validationContext" name="Role" :rules="{ required: true }">
+            <b-form-group label="권한" label-for="Role" label-cols="3">
+              <b-form-radio-group
+                id="auth"
+                v-model="user.role"
+                :options="userRole.options"
+                :state="getValidationState(validationContext)"
+                aria-describedby="input-5-live-feedback"
+              />
+              <b-form-invalid-feedback id="input-5-live-feedback">
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+          <validation-provider v-slot="validationContext" name="Email" :rules="{ required: true }">
+            <b-form-group label="이메일" label-for="email" label-cols="3">
+              <b-form-input
+                id="email"
+                v-model="user.email"
+                :state="getValidationState(validationContext)"
+                aria-describedby="input-6-live-feedback"
+              ></b-form-input>
+              <b-form-invalid-feedback id="input-6-live-feedback">
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+          <validation-provider v-slot="validationContext" name="Phone" :rules="{ required: true }">
+            <b-form-group label="전화번호" label-for="phone" label-cols="3">
+              <b-form-input
+                id="phone"
+                v-model="user.phone"
+                :state="getValidationState(validationContext)"
+                aria-describedby="input-7-live-feedback"
+              ></b-form-input>
+              <b-form-invalid-feedback id="input-7-live-feedback">
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+        </div>
+      </b-modal>
+    </validation-observer>
   </div>
 </template>
 
@@ -86,9 +159,6 @@ export default {
     },
     getCreatedAt() {
       return this.user.createdAt && this.user.createdAt.substring(0, 10)
-    },
-    validation() {
-      return this.user.name.length > 3 && this.user.name.length < 10
     }
   },
   watch: {
@@ -106,6 +176,23 @@ export default {
     this.setDefaultValues() // 기본값 세팅
   },
   methods: {
+    getValidationState({ dirty, validated, valid = null }) {
+      return dirty || validated ? valid : null
+    },
+    resetForm() {
+      this.user = {
+        name: null,
+        userid: null,
+        password: null,
+        rank: null,
+        role: null,
+        email: null,
+        phone: null
+      }
+      this.$nextTick(() => {
+        this.$validator.reset()
+      })
+    },
     onSubmit() {
       // 1. 등록인 경우
       if (this.inputMode === 'insert') {
@@ -126,6 +213,12 @@ export default {
     setName(value) {
       this.user.name = value
       this.$v.name.$touch()
+    },
+    isRequired(value) {
+      if (value && value.trim()) {
+        return true
+      }
+      return 'This is required'
     }
   }
 }
