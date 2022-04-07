@@ -266,4 +266,31 @@ table thead tr th:first-child {
   margin: 100px auto 0;
   vertical-align: top;
 }
+
+#completion_wrap h2 {
+  text-align: center;
+  font-size: 1.9rem;
+  margin-top: 100px;
+}
+
+#completion_wrap #completion_end {
+  width: 1280px;
+  margin: 0 auto;
+  text-align: right;
+}
+
+#completion_wrap #completion_end button {
+  margin-top: 50px;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+#completion_wrap #completion_end table {
+  text-align: center;
+}
+
+#completion_wrap #completion_end table thead tr th {
+  width: 10%;
+  font-size: 1.1rem;
+}
 /*# sourceMappingURL=main.css.map */
