@@ -6,7 +6,6 @@
       <b-nav-item active @click="$router.push('/control/dashboard')">대시보드</b-nav-item>
       <b-nav-item @click="$router.push('/webgl')">3D</b-nav-item>
       <b-nav-item @click="$router.push('/control/workhistory')">작업이력</b-nav-item>
-      <b-nav-item @click="$router.push('/control/completionhistory')">완료이력</b-nav-item>
       <b-nav-item @click="$router.push('/control/factorycontrol')">공장제어</b-nav-item>
       <b-nav-item @click="$router.push('/auth/mypage')">마이페이지</b-nav-item>
       <b-nav-item @click="$router.push('/auth/logout')">로그아웃</b-nav-item>

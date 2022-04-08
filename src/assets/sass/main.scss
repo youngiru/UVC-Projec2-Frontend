@@ -118,56 +118,6 @@ html{
 }
 // Login.vue
 
-// // Join.vue
-// #Join_wrap{
-//   width: $wi;
-//   margin: $mr;
-//   h3{
-//     font-size: 3rem;
-//     text-align: center;
-//     margin-top: 150px;
-//     letter-spacing: 10px;
-//     font-family: 'YeolrinGothic-Bold';
-//   }
-//   .Join_formbox{
-//     background-color: #ccc;
-//     margin: 100px auto 0;
-//     height: 500px;
-//     width: 800px;
-//     padding-top: 70px;
-//     box-sizing: border-box;
-//     .Join_form{
-//       width: 600px;
-//       margin: 0 auto;
-//       #Join_namebox,
-//       #Join_idbox,
-//       #Join_pwbox,
-//       #Join_positionbox{
-//         margin-bottom: 30px;
-//       }
-//       .Join_btnbox{
-//         margin-top: 70px;
-//         .Join_btnsub,
-//         .Join_btnres{
-//           display: inline-block;
-//           background-color: $ee;
-//           width: calc(50% - 3px);
-//           border: 0;
-//           &:hover {
-//             background-color: rgb(131, 129, 129);
-//           }
-//         }
-//         .Join_btnsub{
-//           margin-right: 3px;
-//         }
-//         .Join_btnres{
-//         }
-//       }
-//     }
-//   }
-// }
-// // Join.vue
-
 // leader/main.vue
 #leader_main_wrap{
   .leader_main_header{
@@ -331,6 +281,58 @@ table{
 // factorycontrol.vue
 
 // workhistory.vue
+#work_wrap{
+  width: $wi;
+  margin: $mr;
+  margin-top: 100px;
+  a{
+    color: #000;
+  }
+  .workhistroy_title{
+    text-align: center;
+    margin-bottom: 70px;
+  }
+  .workhistory_box{
+    #workhistory_div{
+      margin-top: 100px;
+      text-align: right;
+      button{
+        margin-bottom: 15px;
+      }
+      table{
+        text-align: center;
+        thead{
+          tr{
+            th{
+              width: 10%;
+              font-size: 1.1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  .completion_box{
+    #completion_div{
+      margin-top: 100px;
+      text-align: right;
+      button{
+        margin-bottom: 15px;
+      }
+      table{
+        text-align: center;
+        thead{
+          tr{
+            th{
+              width: 10%;
+              font-size: 1.1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 #chartbox{
   width: 600px;
   margin: 100px auto 0;
@@ -338,34 +340,3 @@ table{
 }
 
 // workhistory.vue
-
-// completionhistory.vue
-#completion_wrap{
-  h2{
-    text-align: center;
-    font-size: 1.9rem;
-    margin-top: 100px;
-  }
-  #completion_end{
-    width: $wi;
-    margin: $mr;
-    text-align: right;
-    button{
-      margin-top: 50px;
-      display: inline-block;
-      margin-bottom: 15px;
-    }
-    table{
-      text-align: center;
-      thead{
-        tr{
-          th{
-            width: 10%;
-            font-size: 1.1rem;
-          }
-        }
-      }
-    }
-  }
-}
-// completionhistory.vue

@@ -64,10 +64,6 @@ const routes = [
           {
             path: '/control/factorycontrol',
             component: () => import('../views/control/factorycontrol.vue')
-          },
-          {
-            path: '/control/completionhistory',
-            component: () => import('../views/control/completionhistory.vue')
           }
         ]
       },

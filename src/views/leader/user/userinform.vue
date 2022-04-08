@@ -1,9 +1,9 @@
 <template>
   <div>
     <validation-observer ref="observer" v-slot="{ handleSubmit }">
-      <b-modal id="modal-user-inform" :title="getTitle" @submit.stop.prevent="handleSubmit(onSubmit)">
+      <b-modal id="modal-user-inform" :title="getTitle" @ok="handleSubmit(onSubmit)">
         <div>
-          <validation-provider v-slot="validationContext" name="Name" :rules="{ required: true, min: 3 }">
+          <validation-provider v-slot="validationContext" name="Name" :rules="{ required: true, min: 2 }">
             <b-form-group label="이름" label-for="name" label-cols="3">
               <b-form-input
                 id="name"
@@ -209,16 +209,6 @@ export default {
       if (this.inputMode === 'insert') {
         this.user.role = this.userRole.default // 사용자 권한
       }
-    },
-    setName(value) {
-      this.user.name = value
-      this.$v.name.$touch()
-    },
-    isRequired(value) {
-      if (value && value.trim()) {
-        return true
-      }
-      return 'This is required'
     }
   }
 }
