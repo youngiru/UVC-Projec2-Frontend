@@ -8,7 +8,7 @@
           <div id="workhistory_div">
             <b-button variant="dark">등록</b-button>
             <div>
-              <b-table striped hover :fields="before" :items="before_items">
+              <b-table striped hover :fields="before" :items="workHistoryList">
                 <template #cell(ready)="">
                   <b-form-checkbox
                     id="ready_checkbox"
@@ -123,7 +123,7 @@ export default {
     ],
     before: [
       {
-        key: 'target',
+        key: 'targetQuantity',
         label: '목표수량'
       },
       {
@@ -135,7 +135,7 @@ export default {
         label: '등록시간'
       },
       {
-        key: 'time',
+        key: 'leadtime',
         label: '공정반복시간'
       },
       {
@@ -157,15 +157,15 @@ export default {
     ],
     end: [
       {
-        key: 'target',
-        label: '목표수량'
+        key: 'vailableQuantity',
+        label: '재고수량'
       },
       {
         key: 'operator',
         label: '담당작업자'
       },
       {
-        key: 'time',
+        key: 'leadtime',
         label: '공정반복시간'
       },
       {
@@ -212,6 +212,11 @@ export default {
       }
     ]
   }),
+  computed: {
+    workHistoryList() {
+      return this.$store.getters.WorkHistoryList
+    }
+  },
   mounted() {
     this.createChart()
   },
