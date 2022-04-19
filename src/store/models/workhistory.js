@@ -31,9 +31,9 @@ const stateInit = {
     // 공정반복시간
     color: null,
     // 색선별
-    ready: null,
+    ready: false,
     // 준비상태
-    reset: null,
+    reset: false,
     // 리셋
     operating: null,
     // 운용
@@ -46,6 +46,7 @@ export default {
     WorkHistoryList: [],
     WorkHistory: { ...stateInit.WorkHistory },
     InsertedResult: null, // 입력처리 후 결과
+    DoneResult: null, // 완료처리 후 결과
     DeletedResult: null, // 삭제처리 후 결과
     InputMode: null // 입력모드
   },
@@ -53,6 +54,7 @@ export default {
     WorkHistoryList: state => state.WorkHistoryList,
     WorkHistory: state => state.WorkHistory,
     WorkHistoryInsertedResult: state => state.InsertedResult,
+    WorkHistoryDoneResult: state => state.DoneResult,
     WorkHistoryDeletedResult: state => state.DeletedResult,
     WorkHistoryInputMode: state => state.InputMode
   },
@@ -66,6 +68,9 @@ export default {
     setInsertedResult(state, data) {
       state.InsertedResult = data
     },
+    setDoneResult(state, data) {
+      state.DoneResult = data
+    },
     setDeletedResult(state, data) {
       state.DeletedResult = data
     },
@@ -78,9 +83,10 @@ export default {
     actWorkHistoryList(context, payload) {
       // RestAPI 호춯
       api
-        .get('/serverApi/workStatus', { params: payload })
+        .get('/serverApi/workStatus')
         .then(response => {
-          const workhistory = response && response.data && response.data.rows
+          console.log('list', response)
+          const workhistory = response && response.data
           context.commit('setWorkHistoryList', workhistory)
         })
         .catch(error => {
@@ -89,7 +95,7 @@ export default {
           context.commit('setWorkHistoryList', [])
         })
     },
-    // 기기 입력
+    // 작업이력 입력
     actWorkHistoryInsert(context, payload) {
       // 상태값 초기화
       context.commit('setInsertedResult', null)
@@ -105,6 +111,22 @@ export default {
           // 에러인 경우 처리
           console.error('WorkHistoryInsert.error', error)
           context.commit('setInsertedResult', -1)
+        })
+    },
+    // 준비상태 체크
+    actWorkHistoryReady(context, payload) {
+      // RestAPI 호출
+      api
+        .put(`/serverApi/workStatus/ready/${payload.id}`)
+        .then(response => {
+          console.log('actWorkHistoryReady', response)
+          const workhistory = response && response.data
+          context.commit('setWorkHistory', workhistory)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          console.error('WorkHistory.error', error)
+          context.commit('setWorkHistory', -1)
         })
     },
     // 작업이력 초기화
@@ -134,19 +156,21 @@ export default {
     },
     // 작업이력 삭제
     actWorkHistoryDelete(context, payload) {
+      console.log('delete1', payload)
       // 상태값 초기화
-      context.commit('setDeleteResult', null)
+      context.commit('setDeletedResult', null)
       // RestAPI 호출
       api
-        .delete(`/serverApi/workStatus/${payload}`)
+        .put(`/serverApi/workStatus/done/${payload}`)
         .then(response => {
+          console.log('delete', response)
           const deletedResult = response && response.data && response.data.deleteCount
-          context.commit('setDeletedResult', deletedResult)
+          context.commit('setDoneResult', deletedResult)
         })
         .catch(error => {
           // 에러인 경우 처리
           console.error('WorkHistoryDelete.error', error)
-          context.commit('setDeletedResult', -1)
+          context.commit('setDoneResult', -1)
         })
     }
   }

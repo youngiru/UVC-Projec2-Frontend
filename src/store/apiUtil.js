@@ -3,7 +3,6 @@ import axios from 'axios'
 const api = axios.create()
 
 // request(요청)시 아래의 로직이 인터셉트 된다.
-
 api.interceptors.request.use(
   async request => {
     // header.token 전송
@@ -25,6 +24,7 @@ api.interceptors.response.use(
     if (token) {
       window.localStorage.setItem('token', token)
     }
+    console.log('apiutilresponse', response)
     return response
   },
   async error => {

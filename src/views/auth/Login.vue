@@ -38,7 +38,6 @@
 
 <script>
 import jwtDecode from 'jwt-decode'
-import userVue from '../leader/user/user.vue'
 
 export default {
   data() {

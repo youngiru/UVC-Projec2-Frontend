@@ -12,15 +12,17 @@
                 <template #cell(ready)="">
                   <b-form-checkbox
                     id="ready_checkbox"
+                    v-model="ready"
                     name="ready_checkbox"
                     value="accepted"
                     unchecked-value="not_accepted"
+                    @click="onReady"
                   >
                   </b-form-checkbox>
                 </template>
                 <template #cell(btn)="">
                   <b-button size="sm" variant="dark" class="mr-2">시작</b-button>
-                  <b-button size="sm" variant="dark" class="mr-2">정지</b-button>
+                  <b-button size="sm" variant="dark" class="mr-2" @click="Done">정지</b-button>
                 </template>
               </b-table>
             </div>
@@ -127,6 +129,10 @@ export default {
     ],
     before: [
       {
+        key: 'id',
+        label: '작업번호'
+      },
+      {
         key: 'userId',
         label: '담당자'
       },
@@ -210,7 +216,7 @@ export default {
       console.log('work', value)
       // 등록후 처리
       if (value !== null) {
-        if (value > 0) {
+        if (value.id > 0) {
           // 등록 성공한 경우
 
           // 메세지 출력
@@ -286,6 +292,13 @@ export default {
 
       // 모달 출력
       this.$bvModal.show('modal-workHistory-inform')
+    },
+    onReady() {
+      this.$store.dispatch('actWorkHistoryReady', { id: this.workHistoryList.id, ready: this.ready })
+    },
+    Done() {
+      this.$store.dispatch('actWorkHistoryDelete', this.workHistoryList[0].id)
+      console.log('done', this.workHistoryList[0].id)
     }
   }
 }

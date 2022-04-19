@@ -24,7 +24,9 @@
           <b-form-input id="color" v-model="workHistory.color"></b-form-input>
         </b-form-group>
         <b-form-group label="준비상태" label-for="ready" label-cols="3">
-          <b-form-checkbox id="ready" v-model="workHistory.ready" name="ready"> 준비완료 </b-form-checkbox>
+          <b-form-checkbox id="ready" v-model="workHistory.ready" name="ready" switch @ok="onReady">
+            준비완료
+          </b-form-checkbox>
         </b-form-group>
       </div>
     </b-modal>
@@ -50,7 +52,7 @@ export default {
         downtime: null,
         leadtime: null,
         color: null,
-        ready: null,
+        ready: false,
         reset: null,
         operating: null,
         createdAt: null
@@ -81,6 +83,9 @@ export default {
   methods: {
     onSubmit() {
       this.$store.dispatch('actWorkHistoryInsert', this.workHistory)
+    },
+    onReady() {
+      this.$store.dispatch('actWorkHistoryReady', { id: this.workHistory.id, ready: this.workHistory.ready })
     }
   }
 }
