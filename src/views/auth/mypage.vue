@@ -14,8 +14,8 @@
       <b-form-group label="직급" label-for="rank" label-cols="3">
         <b-form-input id="rank" v-model="user.rank" disabled></b-form-input>
       </b-form-group>
-      <b-form-group label="권한" label-for="auth" label-cols="3">
-        <b-form-input id="auth" v-model="user.auth" disabled></b-form-input>
+      <b-form-group label="권한" label-for="role" label-cols="3">
+        <b-form-input id="role" v-model="user.role" disabled></b-form-input>
       </b-form-group>
       <b-form-group label="이메일" label-for="email" label-cols="3">
         <b-form-input id="email" v-model="user.email" disabled></b-form-input>

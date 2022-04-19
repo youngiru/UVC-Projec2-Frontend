@@ -4,19 +4,40 @@ import axios from 'axios'
 // 초기값 선언
 const stateInit = {
   WorkHistory: {
-    targetQuantity: null,
-    leadtime: null,
-    color: null,
-    start: null,
-    ready: null,
-    reset: null,
-    operating: null,
+    deviceId: null,
+    // 디바이스 아이디
+    sensorId: null,
+    // 센서 아이디
+    userId: null,
+    // 유저 아이디
     inputQuantity: null,
-    operator: null,
-    createdAt: null,
-    end: null,
-    completion: null,
-    vailableQuantity: null
+    // 투입수량
+    targetQuantity: null,
+    // 목표수량
+    outputQuantity: null,
+    // 출력수량
+    qualityQuantity: null,
+    // 품질수량
+    defectiveQuantity: null,
+    // 불량수량
+    defectiveRate: null,
+    // 불량률
+    stock: null,
+    uptime: null,
+    // 가동시간
+    downtime: null,
+    // 끝난시간
+    leadtime: null,
+    // 공정반복시간
+    color: null,
+    // 색선별
+    ready: null,
+    // 준비상태
+    reset: null,
+    // 리셋
+    operating: null,
+    // 운용
+    createdAt: null
   }
 }
 
@@ -35,7 +56,7 @@ export default {
     WorkHistoryDeletedResult: state => state.DeletedResult,
     WorkHistoryInputMode: state => state.InputMode
   },
-  mutatuions: {
+  mutations: {
     setWorkHistoryList(state, data) {
       state.WorkHistoryList = data
     },
@@ -57,7 +78,7 @@ export default {
     actWorkHistoryList(context, payload) {
       // RestAPI 호춯
       api
-        .get('/serverApi/workHistory', { params: payload })
+        .get('/serverApi/workStatus', { params: payload })
         .then(response => {
           const workhistory = response && response.data && response.data.rows
           context.commit('setWorkHistoryList', workhistory)
@@ -75,9 +96,9 @@ export default {
 
       // RestAPI 호출
       axios
-        .post('/serverApi/workHistory', payload)
+        .post('/serverApi/workStatus', payload)
         .then(response => {
-          const insertedResult = response && response.data && response.data.id
+          const insertedResult = response && response.data
           context.commit('setInsertedResult', insertedResult)
         })
         .catch(error => {
@@ -100,7 +121,7 @@ export default {
       context.commit('setWorkHistory', { ...stateInit.WorkHistory })
       // RestAPI 호출
       api
-        .get(`/serverApi/workHistory/${payload}`)
+        .get(`/serverApi/workStatus/${payload}`)
         .then(response => {
           const workhistory = response && response.data
           context.commit('setWorkHistory', workhistory)
@@ -117,7 +138,7 @@ export default {
       context.commit('setDeleteResult', null)
       // RestAPI 호출
       api
-        .delete(`/serverApi/workHistory/${payload}`)
+        .delete(`/serverApi/workStatus/${payload}`)
         .then(response => {
           const deletedResult = response && response.data && response.data.deleteCount
           context.commit('setDeletedResult', deletedResult)

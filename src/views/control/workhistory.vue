@@ -6,7 +6,7 @@
       <b-tabs content-class="mt-3" fill>
         <b-tab title="작업이력" class="workhistory_box" active>
           <div id="workhistory_div">
-            <b-button variant="dark">등록</b-button>
+            <b-button variant="dark" @click="onClickAddNew">등록</b-button>
             <div>
               <b-table striped hover :fields="before" :items="workHistoryList">
                 <template #cell(ready)="">
@@ -60,17 +60,21 @@
         </b-tab>
       </b-tabs>
     </div>
+    <!-- 모달창 -->
+    <Inform />
   </div>
 </template>
 
 <script>
 import Header from '../../components/layout/controlheader.vue'
+import inform from './workHistoryinform.vue'
 import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables)
 
 export default {
   components: {
-    'app-header': Header
+    'app-header': Header,
+    Inform: inform
   },
   data: () => ({
     type: 'bar',
@@ -123,24 +127,20 @@ export default {
     ],
     before: [
       {
-        key: 'targetQuantity',
-        label: '목표수량'
-      },
-      {
-        key: 'operator',
-        label: '담당작업자'
-      },
-      {
-        key: 'createdAt',
-        label: '등록시간'
-      },
-      {
-        key: 'leadtime',
-        label: '공정반복시간'
+        key: 'userId',
+        label: '담당자'
       },
       {
         key: 'inputQuantity',
         label: '투입수량'
+      },
+      {
+        key: 'targetQuantity',
+        label: '목표수량'
+      },
+      {
+        key: 'leadtime',
+        label: '공정반복시간'
       },
       {
         key: 'color',
@@ -151,74 +151,118 @@ export default {
         label: '준비상태'
       },
       {
+        key: 'createdAt',
+        label: '등록시간'
+      },
+      {
         key: 'btn',
         label: '비고'
       }
     ],
     end: [
       {
-        key: 'vailableQuantity',
-        label: '재고수량'
-      },
-      {
-        key: 'operator',
-        label: '담당작업자'
-      },
-      {
-        key: 'leadtime',
-        label: '공정반복시간'
-      },
-      {
-        key: 'color',
-        label: '색 선별'
+        key: 'userId',
+        label: '담당자'
       },
       {
         key: 'inputQuantity',
         label: '투입수량'
       },
       {
-        key: 'completion',
-        label: '완료수량'
+        key: 'outputQuantity',
+        label: '출력수량'
       },
       {
-        key: 'start',
+        key: 'qualityQuantity',
+        label: '품질수량'
+      },
+      {
+        key: 'color',
+        label: '색 선별'
+      },
+      {
+        key: 'uptime',
         label: '가동시간'
       },
       {
-        key: 'end',
-        label: '끝시간'
-      }
-    ],
-    before_items: [
+        key: 'leadtime',
+        label: '공정반복시간'
+      },
       {
-        target: true,
-        operator: 40,
-        createdAt: 'test',
-        time: 'Dickerson',
-        color: 'Macdonald',
-        inputQuantity: '2개'
-      }
-    ],
-    end_items: [
-      {
-        target: true,
-        operator: 40,
-        time: 'Dickerson',
-        color: 'Macdonald',
-        inputQuantity: 'Macdonald',
-        completion: 'Macdonald',
-        start: 'Macdonald',
-        end: 'Macdonald'
+        key: 'downtime',
+        label: '끝난시간'
       }
     ]
   }),
   computed: {
     workHistoryList() {
       return this.$store.getters.WorkHistoryList
+    },
+    insertedResult() {
+      return this.$store.getters.WorkHistoryInsertedResult
+    },
+    deletedResult() {
+      return this.$store.getters.WorkHistoryDeletedResult
+    }
+  },
+  watch: {
+    insertedResult(value) {
+      console.log('work', value)
+      // 등록후 처리
+      if (value !== null) {
+        if (value > 0) {
+          // 등록 성공한 경우
+
+          // 메세지 출력
+          this.$bvToast.toast('등록 되었습니다', {
+            title: 'SUCCESS',
+            variant: 'success',
+            solid: true
+          })
+
+          // 리스트 재검색
+          this.searchWorkHistoryList()
+        } else {
+          // 등록 실패한 경우
+          this.$bvToast.toast('등록 실패하였습니다', {
+            title: 'ERROR',
+            variant: 'danger',
+            solid: true
+          })
+        }
+      }
+    },
+    deletedResult(value) {
+      // 삭제 후 처리
+      if (value !== null) {
+        if (value > 0) {
+          // 삭제가 성공한 경우
+
+          // 메세지 출력
+          this.$bvToast.toast('삭제 되었습니다.', {
+            title: 'SUCCESS',
+            variant: 'success',
+            solid: true
+          })
+
+          // 리스트 재 검색
+          this.searchWorkHistoryList()
+        } else {
+          // 삭제를 실패한 경우
+          this.$bvToast.toast('삭제를 실패하였습니다', {
+            title: 'ERROR',
+            variant: 'danger',
+            solid: true
+          })
+        }
+      }
     }
   },
   mounted() {
     this.createChart()
+  },
+  created() {
+    this.searchWorkHistoryList()
   },
   methods: {
     createChart() {
@@ -227,6 +271,21 @@ export default {
         data: this.data,
         options: this.options
       })
+    },
+    searchWorkHistoryList() {
+      this.$store.dispatch('actWorkHistoryList', this.search)
+    },
+    onClickAddNew() {
+      // 신규등록
+
+      // 입력모드 설정
+      this.$store.dispatch('actWorkHistoryInputMode', 'insert')
+
+      // 상세정보 초기화
+      this.$store.dispatch('actWorkHistoryInit')
+
+      // 모달 출력
+      this.$bvModal.show('modal-workHistory-inform')
     }
   }
 }
