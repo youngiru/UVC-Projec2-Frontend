@@ -85,7 +85,7 @@ export default {
       this.$store.dispatch('actWorkHistoryInsert', this.workHistory)
     },
     onReady() {
-      this.$store.dispatch('actWorkHistoryReady', { id: this.workHistory.id, ready: this.workHistory.ready })
+      this.$store.dispatch('actWorkHistoryReady', { id: this.workHistoryList.id, ready: this.ready })
     }
   }
 }

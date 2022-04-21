@@ -4,39 +4,23 @@ import axios from 'axios'
 // 초기값 선언
 const stateInit = {
   WorkHistory: {
-    deviceId: null,
-    // 디바이스 아이디
-    sensorId: null,
-    // 센서 아이디
-    userId: null,
-    // 유저 아이디
-    inputQuantity: null,
-    // 투입수량
-    targetQuantity: null,
-    // 목표수량
-    outputQuantity: null,
-    // 출력수량
-    qualityQuantity: null,
-    // 품질수량
-    defectiveQuantity: null,
-    // 불량수량
-    defectiveRate: null,
-    // 불량률
-    stock: null,
-    uptime: null,
-    // 가동시간
-    downtime: null,
-    // 끝난시간
-    leadtime: null,
-    // 공정반복시간
-    color: null,
-    // 색선별
-    ready: false,
-    // 준비상태
-    reset: false,
-    // 리셋
-    operating: null,
-    // 운용
+    deviceId: null, // 디바이스 아이디
+    sensorId: null, // 센서 아이디
+    userId: null, // 유저 아이디
+    inputQuantity: null, // 투입량
+    targetQuantity: null, // 목표수량
+    outputQuantity: null, // 산출량 (양품 + 불량품)
+    qualityQuantity: null, // 양품
+    defectiveQuantity: null, // 불량품
+    defectiveRate: null, // 불량률
+    stock: null, // 재고수량
+    uptime: null, // 시작시각
+    downtime: null, // 중지시각
+    leadtime: null, // 공정작업시간
+    color: null, // 색선별
+    ready: null, // 준비상태
+    reset: null, // 리셋
+    operating: null, // true: 가동중, false: 미가동
     createdAt: null
   }
 }
@@ -81,11 +65,10 @@ export default {
   actions: {
     // 작업이력 리스트 조회
     actWorkHistoryList(context, payload) {
-      // RestAPI 호춯
+      // RestAPI 호출
       api
         .get('/serverApi/workStatus')
         .then(response => {
-          console.log('list', response)
           const workhistory = response && response.data
           context.commit('setWorkHistoryList', workhistory)
         })

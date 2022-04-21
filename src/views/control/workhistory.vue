@@ -3,23 +3,12 @@
     <app-header />
     <div id="work_wrap">
       <h2 class="workhistroy_title">작업이력</h2>
-      <b-tabs content-class="mt-3" fill>
+      <b-tabs content-class="mt-3" fill style="display: block">
         <b-tab title="작업현황" class="workhistory_box" active>
           <div id="workhistory_div">
             <b-button variant="dark" @click="onClickAddNew">등록</b-button>
             <div>
-              <b-table striped hover :fields="before" :items="workHistoryList">
-                <template #cell(ready)="">
-                  <b-form-checkbox
-                    id="ready_checkbox"
-                    v-model="ready"
-                    name="ready_checkbox"
-                    value="accepted"
-                    unchecked-value="not_accepted"
-                    @click="Ready"
-                  >
-                  </b-form-checkbox>
-                </template>
+              <b-table striped :fields="before" :items="workHistoryList">
                 <template #cell(btn)="">
                   <b-button size="sm" variant="dark" class="mr-2">시작</b-button>
                   <b-button size="sm" variant="dark" class="mr-2" @click="Done">정지</b-button>
@@ -31,34 +20,17 @@
         <b-tab title="작업이력" class="completion_box">
           <div id="completion_div">
             <b-button variant="dark">리셋</b-button>
-            <b-table striped hover :fields="end" :items="end_items"></b-table>
+            <b-table striped :fields="end"></b-table>
+            <h3>비상정지이력</h3>
+            <b-table striped :fields="emergencyStop"></b-table>
           </div>
         </b-tab>
-        <b-tab title="통계" class="stats_box">
-          <div class="work_div" style="margin: 70px auto 0">
-            <div id="chartbox" style="display: inline-block">
-              <canvas
-                ref="barChart"
-                width="400"
-                height="400"
-                style="width: 600px !important; height: 600px !important"
-                class="barChart"
-              ></canvas>
-            </div>
-            <b-table
-              :items="item"
-              hover
-              :fields="fields"
-              style="
-                width: 300px;
-                display: inline-block;
-                margin-left: 150px;
-                vertical-align: top;
-                margin-top: 100px;
-                text-align: center;
-              "
-            ></b-table>
+        <b-tab title="통계" class="status_box">
+          <div v-if="chartData" id="chartbox" class="line">
+            <line-chart class="chart1" :chart-data="chartData" />
+            <line-chart class="chart2" :chart-data="chartData1" />
           </div>
+          <b-table :items="item" :fields="fields" class="status_table"></b-table>
         </b-tab>
       </b-tabs>
     </div>
@@ -70,136 +42,148 @@
 <script>
 import Header from '../../components/layout/controlheader.vue'
 import inform from './workHistoryinform.vue'
-import { Chart, registerables } from 'chart.js'
-Chart.register(...registerables)
+import LineChart from '@/components/chart/lineChart'
 
 export default {
   components: {
     'app-header': Header,
-    Inform: inform
+    Inform: inform,
+    'line-chart': LineChart
   },
-  data: () => ({
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [
+  data() {
+    return {
+      fields: [
         {
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
+          key: 'name',
+          label: '공장'
+        },
+        {
+          key: 'temperature',
+          label: '온도계'
         }
-      ]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+      ],
+      item: [
+        { name: 40, temperature: 'Dickerson' },
+        { name: 40, temperature: 'Dickerson' }
+      ],
+      before: [
+        {
+          key: 'id',
+          label: '작업번호'
+        },
+        {
+          key: 'userId',
+          label: '담당자'
+        },
+        {
+          key: 'inputQuantity',
+          label: '투입수량'
+        },
+        {
+          key: 'targetQuantity',
+          label: '목표수량'
+        },
+        {
+          key: 'leadtime',
+          label: '공정반복시간'
+        },
+        {
+          key: 'color',
+          label: '색 선별'
+        },
+        {
+          key: 'ready',
+          label: '준비상태'
+        },
+        {
+          key: 'createdAt',
+          label: '등록시간'
+        },
+        {
+          key: 'btn',
+          label: '비고'
         }
-      }
-    },
-    fields: [
-      {
-        key: 'name',
-        label: '공장'
-      },
-      {
-        key: 'temperature',
-        label: '온도계'
-      }
-    ],
-    item: [
-      { name: 40, temperature: 'Dickerson' },
-      { name: 40, temperature: 'Dickerson' }
-    ],
-    before: [
-      {
-        key: 'id',
-        label: '작업번호'
-      },
-      {
-        key: 'userId',
-        label: '담당자'
-      },
-      {
-        key: 'inputQuantity',
-        label: '투입수량'
-      },
-      {
-        key: 'targetQuantity',
-        label: '목표수량'
-      },
-      {
-        key: 'leadtime',
-        label: '공정반복시간'
-      },
-      {
-        key: 'color',
-        label: '색 선별'
-      },
-      {
-        key: 'ready',
-        label: '준비상태'
-      },
-      {
-        key: 'createdAt',
-        label: '등록시간'
-      },
-      {
-        key: 'btn',
-        label: '비고'
-      }
-    ],
-    end: [
-      {
-        key: 'userId',
-        label: '담당자'
-      },
-      {
-        key: 'inputQuantity',
-        label: '투입수량'
-      },
-      {
-        key: 'outputQuantity',
-        label: '출력수량'
-      },
-      {
-        key: 'qualityQuantity',
-        label: '품질수량'
-      },
-      {
-        key: 'color',
-        label: '색 선별'
-      },
-      {
-        key: 'uptime',
-        label: '가동시간'
-      },
-      {
-        key: 'leadtime',
-        label: '공정반복시간'
-      },
-      {
-        key: 'downtime',
-        label: '끝난시간'
-      }
-    ]
-  }),
+      ],
+      end: [
+        {
+          key: 'id',
+          label: '작업번호'
+        },
+        {
+          key: 'userId',
+          label: '담당자'
+        },
+        {
+          key: 'inputQuantity',
+          label: '투입수량'
+        },
+        {
+          key: 'outputQuantity',
+          label: '출력수량'
+        },
+        {
+          key: 'qualityQuantity',
+          label: '품질수량'
+        },
+        {
+          key: 'color',
+          label: '색 선별'
+        },
+        {
+          key: 'uptime',
+          label: '가동시간'
+        },
+        {
+          key: 'leadtime',
+          label: '공정반복시간'
+        },
+        {
+          key: 'downtime',
+          label: '끝난시간'
+        }
+      ],
+      emergencyStop: [
+        {
+          key: 'id',
+          label: '작업번호'
+        },
+        {
+          key: 'userId',
+          label: '담당자'
+        },
+        {
+          key: 'inputQuantity',
+          label: '투입수량'
+        },
+        {
+          key: 'outputQuantity',
+          label: '출력수량'
+        },
+        {
+          key: 'qualityQuantity',
+          label: '품질수량'
+        },
+        {
+          key: 'color',
+          label: '색 선별'
+        },
+        {
+          key: 'uptime',
+          label: '가동시간'
+        },
+        {
+          key: 'leadtime',
+          label: '공정반복시간'
+        },
+        {
+          key: 'downtime',
+          label: '끝난시간'
+        }
+      ],
+      chartData: null,
+      chartData1: null
+    }
+  },
   computed: {
     workHistoryList() {
       return this.$store.getters.WorkHistoryList
@@ -265,19 +249,13 @@ export default {
     }
   },
   mounted() {
-    this.createChart()
+    this.makeChartData()
+    this.makeChartData1()
   },
   created() {
     this.searchWorkHistoryList()
   },
   methods: {
-    createChart() {
-      new Chart(this.$refs.barChart, {
-        type: 'bar',
-        data: this.data,
-        options: this.options
-      })
-    },
     searchWorkHistoryList() {
       this.$store.dispatch('actWorkHistoryList', this.search)
     },
@@ -302,6 +280,62 @@ export default {
     },
     onClickEmergency() {
       this.store.dispatch('actEmergency', this.workHistoryList.id)
+    },
+    makeChartData() {
+      this.chartData = {
+        labels: ['1sec', '2sec', '3sec', '4sec', '5sec'],
+        datasets: [
+          {
+            label: '장비1',
+            data: [200, 300, 130, 150, 110],
+            backgroundColor: '#F7A4A47f',
+            borderColor: 'rgb(255, 153, 153)',
+            borderWidth: 3
+          },
+          {
+            label: '장비2',
+            data: [50, 200, 230, 300, 230],
+            backgroundColor: '#D9A4F77f',
+            borderColor: '#AA29F5',
+            borderWidth: 3
+          },
+          {
+            label: '장비3',
+            data: [100, 150, 180, 200, 150],
+            backgroundColor: '#29F59C7f',
+            borderColor: '#29F59C',
+            borderWidth: 3
+          }
+        ]
+      }
+    },
+    makeChartData1() {
+      this.chartData1 = {
+        labels: ['1sec', '2sec', '3sec', '4sec', '5sec'],
+        datasets: [
+          {
+            label: '장비1',
+            data: [200, 300, 130, 150, 110],
+            backgroundColor: '#F7A4A47f',
+            borderColor: 'rgb(255, 153, 153)',
+            borderWidth: 3
+          },
+          {
+            label: '장비2',
+            data: [50, 200, 230, 300, 230],
+            backgroundColor: '#D9A4F77f',
+            borderColor: '#AA29F5',
+            borderWidth: 3
+          },
+          {
+            label: '장비3',
+            data: [100, 150, 180, 200, 150],
+            backgroundColor: '#29F59C7f',
+            borderColor: '#29F59C',
+            borderWidth: 3
+          }
+        ]
+      }
     }
   }
 }
