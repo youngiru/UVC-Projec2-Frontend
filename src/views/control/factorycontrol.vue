@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-header />
-    <b-table :items="factory" :fields="fields" style="width: 900px; margin: 100px auto 0; text-align: center">
+    <b-table class="factory_table" :items="factory" :fields="fields">
       <template #cell(temperature)="row">
         <b-button size="sm" variant="dark" class="mr-2" @click="onClickEdit(row.item.id)">ON</b-button>
         <b-button size="sm" variant="dark" class="mr-2" @click="onClickDelete(row.item.id)">OFF</b-button>

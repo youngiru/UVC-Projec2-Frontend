@@ -4,39 +4,23 @@ import axios from 'axios'
 // 초기값 선언
 const stateInit = {
   WorkHistory: {
-    deviceId: null,
-    // 디바이스 아이디
-    sensorId: null,
-    // 센서 아이디
-    userId: null,
-    // 유저 아이디
-    inputQuantity: null,
-    // 투입수량
-    targetQuantity: null,
-    // 목표수량
-    outputQuantity: null,
-    // 출력수량
-    qualityQuantity: null,
-    // 품질수량
-    defectiveQuantity: null,
-    // 불량수량
-    defectiveRate: null,
-    // 불량률
-    stock: null,
-    uptime: null,
-    // 가동시간
-    downtime: null,
-    // 끝난시간
-    leadtime: null,
-    // 공정반복시간
-    color: null,
-    // 색선별
-    ready: null,
-    // 준비상태
-    reset: null,
-    // 리셋
-    operating: null,
-    // 운용
+    deviceId: null, // 디바이스 아이디
+    sensorId: null, // 센서 아이디
+    userId: null, // 유저 아이디
+    inputQuantity: null, // 투입량
+    targetQuantity: null, // 목표수량
+    outputQuantity: null, // 산출량 (양품 + 불량품)
+    qualityQuantity: null, // 양품
+    defectiveQuantity: null, // 불량품
+    defectiveRate: null, // 불량률
+    stock: null, // 재고수량
+    uptime: null, // 시작시각
+    downtime: null, // 중지시각
+    leadtime: null, // 공정작업시간
+    color: null, // 색선별
+    ready: null, // 준비상태
+    reset: null, // 리셋
+    operating: null, // true: 가동중, false: 미가동
     createdAt: null
   }
 }
@@ -47,6 +31,7 @@ export default {
     WorkHistory: { ...stateInit.WorkHistory },
     InsertedResult: null, // 입력처리 후 결과
     DeletedResult: null, // 삭제처리 후 결과
+    DoneResult: null, // 완료처리 후 결과
     InputMode: null // 입력모드
   },
   getters: {
@@ -54,6 +39,7 @@ export default {
     WorkHistory: state => state.WorkHistory,
     WorkHistoryInsertedResult: state => state.InsertedResult,
     WorkHistoryDeletedResult: state => state.DeletedResult,
+    WorkHistoryDoneResult: state => state.DoneResult,
     WorkHistoryInputMode: state => state.InputMode
   },
   mutations: {
@@ -69,6 +55,9 @@ export default {
     setDeletedResult(state, data) {
       state.DeletedResult = data
     },
+    setDoneResult(state, data) {
+      state.DoneResult = data
+    },
     setInputMode(state, data) {
       state.InputMode = data
     }
@@ -76,11 +65,11 @@ export default {
   actions: {
     // 작업이력 리스트 조회
     actWorkHistoryList(context, payload) {
-      // RestAPI 호춯
+      // RestAPI 호출
       api
         .get('/serverApi/workStatus', { params: payload })
         .then(response => {
-          const workhistory = response && response.data && response.data.rows
+          const workhistory = response && response.data
           context.commit('setWorkHistoryList', workhistory)
         })
         .catch(error => {
@@ -89,7 +78,7 @@ export default {
           context.commit('setWorkHistoryList', [])
         })
     },
-    // 기기 입력
+    // 작업이력 입력
     actWorkHistoryInsert(context, payload) {
       // 상태값 초기화
       context.commit('setInsertedResult', null)
@@ -105,6 +94,22 @@ export default {
           // 에러인 경우 처리
           console.error('WorkHistoryInsert.error', error)
           context.commit('setInsertedResult', -1)
+        })
+    },
+    // 준비상태 체크
+    actWorkHistoryReady(context, payload) {
+      // RestAPI 호출
+      api
+        .put(`/serverApi/workStatus/ready/${payload.id}`)
+        .then(response => {
+          console.log('actWorkHistoryReady', response)
+          const workhistory = response && response.data
+          context.commit('setWorkHistory', workhistory)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          console.error('WorkHistory.error', error)
+          context.commit('setWorkHistory', -1)
         })
     },
     // 작업이력 초기화

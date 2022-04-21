@@ -167,15 +167,19 @@ html{
   width: $wi;
   margin: 70px auto 0;
   table{
+    text-align: center;
     thead{
-      tr{
-        th{
-          width: calc(100% / 5) !important;
-        }
+      th{
+        width: 10%;width: calc(100% / 5) !important;
+        color: #363636 !important;
+        background-color: #fff !important;
+        font-size: 1.1rem;
+        text-align: center;
       }
     }
-    tr{
+    tbody{
       td{
+        text-align: center;
         &:last-child{
           width: 20%;
         }
@@ -198,14 +202,17 @@ html{
   margin: 70px auto 0;
   table{
     thead{
-      tr{
-        th{
-          width: calc(100% / 5) !important;
-        }
+      th{
+        width: calc(100% / 5) !important;
+        color: #363636 !important;
+        background-color: #fff !important;
+        font-size: 1.1rem;
+        text-align: center;
       }
     }
-    tr{
+    tbody{
       td{
+        text-align: center;
         &:last-child{
           width: 20%;
         }
@@ -265,15 +272,27 @@ html{
 // control/controlheader.vue
 
 // factorycontrol.vue
-table{
+.factory_table{
+  width: 900px !important;
+  margin: 100px auto 0;
+  text-align: center;
   thead{
-    background-color: #ccc;
-    tr{
-      th{
-        &:first-child{
-          width: 15%;
-        }
-        width: 45%;
+    th{
+      width: 45%;
+      color: #363636 !important;
+      background-color: #fff !important;
+      font-size: 1.1rem;
+      text-align: center;
+      &:first-child{
+        width: 15%;
+      }
+    }
+  }
+  tbody{
+    td{
+      text-align: center !important;
+      &:last-child{
+        width: 20%;
       }
     }
   }
@@ -302,11 +321,17 @@ table{
       table{
         text-align: center;
         thead{
-          tr{
-            th{
-              width: 10%;
-              font-size: 1.1rem;
-            }
+          th{
+            width: 10%;
+            font-size: 1.1rem;
+            color: #363636 !important;
+            background-color: #fff !important;
+            text-align: center;
+          }
+        }
+        tbody{
+          td{
+            text-align: center;
           }
         }
       }
@@ -322,21 +347,67 @@ table{
       table{
         text-align: center;
         thead{
-          tr{
-            th{
-              width: 10%;
-              font-size: 1.1rem;
-            }
+          th{
+            width: 10%;
+            color: #363636 !important;
+            background-color: #fff !important;
+            font-size: 1.1rem;
+            text-align: center;
           }
+        }
+        tbody{
+          td{
+            text-align: center;
+          }
+        }
+      }
+      h3{
+        font-size: 1.5rem;
+        text-align: center;
+        margin: 50px 0;
+      }
+    }
+  }
+  .status_box{
+    width: 1200px;
+    margin: 70px auto 0;
+    &::after{@include fl}
+    #chartbox{
+      margin: 100px auto 0;
+      vertical-align: top;
+      float: left;
+      &::after{@include fl}
+      #line-chart{
+        width: 400px !important;
+        height: 400px !important;
+      }
+      .chart1,
+      .chart2{
+        float: left;
+      }
+    }
+    .status_table{
+      width: 250px;
+      margin-left: 150px;
+      text-align: center;
+      display: inline-block;
+      margin-bottom: 0;
+      thead{
+        th{
+          width: 10%;
+          color: #363636 !important;
+          background-color: #fff !important;
+          font-size: 1.1rem;
+          text-align: center;
+        }
+      }
+      tbody{
+        td{
+          text-align: center;
         }
       }
     }
   }
-}
-#chartbox{
-  width: 600px;
-  margin: 100px auto 0;
-  vertical-align: top;
 }
 
 // workhistory.vue

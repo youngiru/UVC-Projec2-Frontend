@@ -170,11 +170,24 @@ html {
   margin: 70px auto 0;
 }
 
-.leader_user_tablebox table thead tr th {
-  width: calc(100% / 5) !important;
+.leader_user_tablebox table {
+  text-align: center;
 }
 
-.leader_user_tablebox table tr td:last-child {
+.leader_user_tablebox table thead th {
+  width: 10%;
+  width: calc(100% / 5) !important;
+  color: #363636 !important;
+  background-color: #fff !important;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.leader_user_tablebox table tbody td {
+  text-align: center;
+}
+
+.leader_user_tablebox table tbody td:last-child {
   width: 20%;
 }
 
@@ -189,11 +202,19 @@ html {
   margin: 70px auto 0;
 }
 
-.leader_device_tablebox table thead tr th {
+.leader_device_tablebox table thead th {
   width: calc(100% / 5) !important;
+  color: #363636 !important;
+  background-color: #fff !important;
+  font-size: 1.1rem;
+  text-align: center;
 }
 
-.leader_device_tablebox table tr td:last-child {
+.leader_device_tablebox table tbody td {
+  text-align: center;
+}
+
+.leader_device_tablebox table tbody td:last-child {
   width: 20%;
 }
 
@@ -249,16 +270,30 @@ html {
   font-size: 1.2rem;
 }
 
-table thead {
-  background-color: #ccc;
+.factory_table {
+  width: 900px !important;
+  margin: 100px auto 0;
+  text-align: center;
 }
 
-table thead tr th {
+.factory_table thead th {
   width: 45%;
+  color: #363636 !important;
+  background-color: #fff !important;
+  font-size: 1.1rem;
+  text-align: center;
 }
 
-table thead tr th:first-child {
+.factory_table thead th:first-child {
   width: 15%;
+}
+
+.factory_table tbody td {
+  text-align: center !important;
+}
+
+.factory_table tbody td:last-child {
+  width: 20%;
 }
 
 #work_wrap {
@@ -289,9 +324,16 @@ table thead tr th:first-child {
   text-align: center;
 }
 
-#work_wrap .workhistory_box #workhistory_div table thead tr th {
+#work_wrap .workhistory_box #workhistory_div table thead th {
   width: 10%;
   font-size: 1.1rem;
+  color: #363636 !important;
+  background-color: #fff !important;
+  text-align: center;
+}
+
+#work_wrap .workhistory_box #workhistory_div table tbody td {
+  text-align: center;
 }
 
 #work_wrap .completion_box #completion_div {
@@ -307,14 +349,74 @@ table thead tr th:first-child {
   text-align: center;
 }
 
-#work_wrap .completion_box #completion_div table thead tr th {
+#work_wrap .completion_box #completion_div table thead th {
   width: 10%;
+  color: #363636 !important;
+  background-color: #fff !important;
   font-size: 1.1rem;
+  text-align: center;
 }
 
-#chartbox {
-  width: 600px;
+#work_wrap .completion_box #completion_div table tbody td {
+  text-align: center;
+}
+
+#work_wrap .completion_box #completion_div h3 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 50px 0;
+}
+
+#work_wrap .status_box {
+  width: 1200px;
+  margin: 70px auto 0;
+}
+
+#work_wrap .status_box::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+#work_wrap .status_box #chartbox {
   margin: 100px auto 0;
   vertical-align: top;
+  float: left;
+}
+
+#work_wrap .status_box #chartbox::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+#work_wrap .status_box #chartbox #line-chart {
+  width: 400px !important;
+  height: 400px !important;
+}
+
+#work_wrap .status_box #chartbox .chart1,
+#work_wrap .status_box #chartbox .chart2 {
+  float: left;
+}
+
+#work_wrap .status_box .status_table {
+  width: 250px;
+  margin-left: 150px;
+  text-align: center;
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+#work_wrap .status_box .status_table thead th {
+  width: 10%;
+  color: #363636 !important;
+  background-color: #fff !important;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+#work_wrap .status_box .status_table tbody td {
+  text-align: center;
 }
 /*# sourceMappingURL=main.css.map */
