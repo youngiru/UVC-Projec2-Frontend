@@ -156,7 +156,6 @@ export default {
     },
     // 작업이력 삭제
     actWorkHistoryDelete(context, payload) {
-      console.log('delete1', payload)
       // 상태값 초기화
       context.commit('setDeletedResult', null)
       // RestAPI 호출
@@ -171,6 +170,24 @@ export default {
           // 에러인 경우 처리
           console.error('WorkHistoryDelete.error', error)
           context.commit('setDoneResult', -1)
+        })
+    },
+    // 비상정지 클릭
+    actEmergency(context, payload) {
+      // 상태값 초기화
+      context.commit('setInsertedResult', null)
+
+      // RestAPI 호출
+      axios
+        .post('/serverApi/workStatus/emergency', payload)
+        .then(response => {
+          const insertedResult = response && response.data
+          context.commit('setInsertedResult', insertedResult)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          console.error('WorkHistoryInsert.error', error)
+          context.commit('setInsertedResult', -1)
         })
     }
   }

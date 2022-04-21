@@ -4,7 +4,7 @@
     <div id="work_wrap">
       <h2 class="workhistroy_title">작업이력</h2>
       <b-tabs content-class="mt-3" fill>
-        <b-tab title="작업이력" class="workhistory_box" active>
+        <b-tab title="작업현황" class="workhistory_box" active>
           <div id="workhistory_div">
             <b-button variant="dark" @click="onClickAddNew">등록</b-button>
             <div>
@@ -16,7 +16,7 @@
                     name="ready_checkbox"
                     value="accepted"
                     unchecked-value="not_accepted"
-                    @click="onReady"
+                    @click="Ready"
                   >
                   </b-form-checkbox>
                 </template>
@@ -28,7 +28,7 @@
             </div>
           </div>
         </b-tab>
-        <b-tab title="완료이력" class="completion_box">
+        <b-tab title="작업이력" class="completion_box">
           <div id="completion_div">
             <b-button variant="dark">리셋</b-button>
             <b-table striped hover :fields="end" :items="end_items"></b-table>
@@ -293,12 +293,15 @@ export default {
       // 모달 출력
       this.$bvModal.show('modal-workHistory-inform')
     },
-    onReady() {
+    Ready() {
       this.$store.dispatch('actWorkHistoryReady', { id: this.workHistoryList.id, ready: this.ready })
     },
     Done() {
       this.$store.dispatch('actWorkHistoryDelete', this.workHistoryList[0].id)
       console.log('done', this.workHistoryList[0].id)
+    },
+    onClickEmergency() {
+      this.store.dispatch('actEmergency', this.workHistoryList.id)
     }
   }
 }
