@@ -8,17 +8,17 @@ class Event {
   constructor(element, edukit) {
     const eventElement = document.createElement('div')
 
-    const inputAddressElement = eventElement.appendChild(document.createElement('input'))
-    inputAddressElement.placeholder = 'MQTT Host 입력'
+    // const inputAddressElement = eventElement.appendChild(document.createElement('input'))
+    // inputAddressElement.placeholder = 'MQTT Host 입력'
 
-    const inputPortElement = eventElement.appendChild(document.createElement('input'))
-    inputPortElement.placeholder = 'MQTT Port 입력'
+    // const inputPortElement = eventElement.appendChild(document.createElement('input'))
+    // inputPortElement.placeholder = 'MQTT Port 입력'
 
-    const inputPathElement = eventElement.appendChild(document.createElement('input'))
-    inputPathElement.placeholder = 'MQTT Path 입력'
+    // // const inputPathElement = eventElement.appendChild(document.createElement('input'))
+    // // inputPathElement.placeholder = 'MQTT Path 입력'
 
-    const inputTopicElement = eventElement.appendChild(document.createElement('input'))
-    inputTopicElement.placeholder = 'MQTT Topic 입력'
+    // const inputTopicElement = eventElement.appendChild(document.createElement('input'))
+    // inputTopicElement.placeholder = 'MQTT Topic 입력'
 
     const buttonElement = eventElement.appendChild(document.createElement('button'))
     buttonElement.innerText = 'Connect'
@@ -29,10 +29,10 @@ class Event {
 
     buttonElement.addEventListener('click', () => {
       let props = {
-        hostname: inputAddressElement.value,
-        port: inputPortElement.value,
-        path: inputPathElement.value,
-        topic: inputTopicElement.value,
+        hostname: '220.90.129.59', //inputAddressElement.value,
+        port: '8088', //inputPortElement.value,
+        // path: inputPathElement.value,
+        topic: 'UVC-EDU-01', //inputTopicElement.value,
         status: statusElement.style,
         edukit: edukit
       }
@@ -46,17 +46,17 @@ class Event {
   }
 
   setEvent(props) {
-    let { hostname, port, path, topic, status, edukit } = props
+    let { hostname, port, topic, status, edukit } = props
 
     const clientId = `mqtt_${Math.random().toString(16).slice(3)}`
     this.client = mqtt.connect({
       clientId,
       clean: true,
-      protocol: 'ws',
+      protocol: 'mqtt',
       reconnectPeriod: 1000,
       hostname: hostname,
-      port: port,
-      path: path
+      port
+      // path: path
     })
 
     this.client.on('connect', () => {
