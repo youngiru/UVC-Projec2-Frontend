@@ -1,7 +1,34 @@
 <template>
   <div>
     <app-header />
-    test
+    <div>
+      <iframe
+        src="http://localhost:3000/d-solo/ml6t63snz/uvc-edukit?orgId=1&refresh=1s&panelId=2"
+        width="760"
+        height="330"
+        frameborder="4"
+      ></iframe>
+      <iframe
+        src="http://localhost:3000/d-solo/ml6t63snz/uvc-edukit?orgId=1&refresh=1s&panelId=4"
+        width="760"
+        height="330"
+        frameborder="4"
+      ></iframe>
+    </div>
+    <div>
+      <iframe
+        src="http://localhost:3000/d-solo/ml6t63snz/uvc-edukit?orgId=1&refresh=1s&panelId=6"
+        width="760"
+        height="330"
+        frameborder="4"
+      ></iframe>
+      <iframe
+        src="http://localhost:3000/d-solo/ml6t63snz/uvc-edukit?orgId=1&refresh=1s&panelId=8"
+        width="760"
+        height="330"
+        frameborder="4"
+      ></iframe>
+    </div>
   </div>
 </template>
 

@@ -59,10 +59,6 @@ const routes = [
           {
             path: '/control/workhistory',
             component: () => import('../views/control/workhistory.vue')
-          },
-          {
-            path: '/control/factorycontrol',
-            component: () => import('../views/control/factorycontrol.vue')
           }
         ]
       },
