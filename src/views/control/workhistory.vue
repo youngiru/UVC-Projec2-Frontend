@@ -70,7 +70,7 @@ export default {
           label: '작업번호'
         },
         {
-          key: 'userId',
+          key: 'userName',
           label: '담당자'
         },
         {
@@ -108,7 +108,7 @@ export default {
           label: '작업번호'
         },
         {
-          key: 'userId',
+          key: 'userName',
           label: '담당자'
         },
         {
@@ -151,6 +151,9 @@ export default {
     },
     insertedResult() {
       return this.$store.getters.WorkHistoryInsertedResult
+    },
+    updatedResult() {
+      return this.$store.getters.WorkHistoryUpdatedResult
     },
     deletedResult() {
       return this.$store.getters.WorkHistoryDeletedResult
@@ -232,7 +235,7 @@ export default {
       this.$bvModal.show('modal-workHistory-inform')
     },
     Done() {
-      this.$store.dispatch('actWorkHistoryDelete', this.workHistoryList[0].id)
+      this.$store.dispatch('actWorkHistoryUpdate', this.workHistoryList[0].id)
       console.log('done', this.workHistoryList[0].id)
     },
     makeChartData() {

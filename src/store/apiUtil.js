@@ -9,7 +9,6 @@ api.interceptors.request.use(
     // header.token 전송
     const token = window.localStorage.getItem('token')
     request.headers.token = token
-
     return request
   },
   async error => {

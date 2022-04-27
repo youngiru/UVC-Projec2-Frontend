@@ -1,5 +1,4 @@
 import api from '../apiUtil'
-import axios from 'axios'
 
 // 초기값 선언
 const stateInit = {
@@ -79,7 +78,7 @@ export default {
       context.commit('setInsertedResult', null)
       /* RestAPI 호출 */
 
-      axios
+      api
         .post('/serverApi/devices', payload)
         .then(response => {
           const insertedResult = response && response.data && response.data.id

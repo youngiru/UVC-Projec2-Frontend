@@ -1,6 +1,5 @@
 import api from '../apiUtil'
 import jwtDecode from 'jwt-decode'
-import axios from 'axios'
 
 // 테스트용 토큰
 // {
@@ -71,7 +70,7 @@ export default {
       context.commit('clearError')
       context.commit('setLoading', true)
       /* RestApi 호출 */
-      axios
+      api
         .post('/serverApi/auths/login', payload)
         .then(response => {
           const token = response.headers.token

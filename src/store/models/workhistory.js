@@ -1,12 +1,12 @@
 import api from '../apiUtil'
-import axios from 'axios'
 
 // 초기값 선언
 const stateInit = {
   WorkHistory: {
     deviceId: null, // 디바이스 아이디
     sensorId: null, // 센서 아이디
-    userId: null, // 유저 아이디
+    // userId: null, // 유저 아이디
+    userName: null, // 유저이름
     inputQuantity: null, // 투입량
     targetQuantity: null, // 목표수량
     outputQuantity: null, // 산출량 (양품 + 불량품)
@@ -30,6 +30,7 @@ export default {
     WorkHistoryList: [],
     WorkHistory: { ...stateInit.WorkHistory },
     InsertedResult: null, // 입력처리 후 결과
+    UpdatedResult: null, // 수정처리 후 결과
     DeletedResult: null, // 삭제처리 후 결과
     DoneResult: null, // 완료처리 후 결과
     InputMode: null // 입력모드
@@ -38,6 +39,7 @@ export default {
     WorkHistoryList: state => state.WorkHistoryList,
     WorkHistory: state => state.WorkHistory,
     WorkHistoryInsertedResult: state => state.InsertedResult,
+    WorkHistoryUpdatedResult: state => state.UpdatedResult,
     WorkHistoryDeletedResult: state => state.DeletedResult,
     WorkHistoryDoneResult: state => state.DoneResult,
     WorkHistoryInputMode: state => state.InputMode
@@ -51,6 +53,9 @@ export default {
     },
     setInsertedResult(state, data) {
       state.InsertedResult = data
+    },
+    setUpdatedResult(state, data) {
+      state.UpdatedResult = data
     },
     setDeletedResult(state, data) {
       state.DeletedResult = data
@@ -82,9 +87,9 @@ export default {
     actWorkHistoryInsert(context, payload) {
       // 상태값 초기화
       context.commit('setInsertedResult', null)
-
+      console.log('insert', payload)
       // RestAPI 호출
-      axios
+      api
         .post('/serverApi/workStatus', payload)
         .then(response => {
           const insertedResult = response && response.data
@@ -135,6 +140,23 @@ export default {
           // 에러인 경우 처리
           console.error('WorkHistory.error', error)
           context.commit('setWorkHistory', -1)
+        })
+    },
+    // 작업이력 수정
+    actWorkHistoryUpdate(context, payload) {
+      // 상태값 초기화
+      context.commit('setUpdatedResult', null)
+
+      api
+        .put(`/serverApi/workStatus/${payload.id}`, payload)
+        .then(response => {
+          const updatedResult = response && response.data && response.data.updatedResult
+          context.commit('setUpdatedResult', updatedResult)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          console.error('WorkHistoryUpdate.error', error)
+          context.commit('setUpdatedResult', -1)
         })
     },
     // 작업이력 삭제

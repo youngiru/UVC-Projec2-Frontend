@@ -8,8 +8,8 @@
         <b-form-group label="SensorId" label-for="sensorId" label-cols="3">
           <b-form-input id="sensorId" v-model="workHistory.sensorId" name="sensorId"></b-form-input>
         </b-form-group>
-        <b-form-group label="담당자" label-for="userId" label-cols="3">
-          <b-form-input id="userId" v-model="workHistory.userId" name="userId"></b-form-input>
+        <b-form-group label="담당자" label-for="userName" label-cols="3">
+          <b-form-input id="userName" v-model="workHistory.userName" name="userName" type="text"></b-form-input>
         </b-form-group>
         <b-form-group label="목표수량" label-for="targetQuantity" label-cols="3">
           <b-form-input id="targetQuantity" v-model="workHistory.targetQuantity" name="targetQuantity"></b-form-input>
@@ -37,7 +37,8 @@ export default {
       workHistory: {
         deviceId: null,
         sensorId: null,
-        userId: null,
+        // userId: null,
+        userName: null,
         inputQuantity: null,
         targetQuantity: null,
         outputQuantity: null,

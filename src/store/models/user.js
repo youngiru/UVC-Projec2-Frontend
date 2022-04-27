@@ -1,5 +1,4 @@
 import api from '../apiUtil'
-import axios from 'axios'
 
 // 초기값 선언
 const stateInit = {
