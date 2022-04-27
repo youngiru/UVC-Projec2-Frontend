@@ -8,14 +8,11 @@
         <b-form-group label="SensorId" label-for="sensorId" label-cols="3">
           <b-form-input id="sensorId" v-model="workHistory.sensorId" name="sensorId"></b-form-input>
         </b-form-group>
-        <b-form-group label="UserId" label-for="userId" label-cols="3">
+        <b-form-group label="담당자" label-for="userId" label-cols="3">
           <b-form-input id="userId" v-model="workHistory.userId" name="userId"></b-form-input>
         </b-form-group>
         <b-form-group label="목표수량" label-for="targetQuantity" label-cols="3">
           <b-form-input id="targetQuantity" v-model="workHistory.targetQuantity" name="targetQuantity"></b-form-input>
-        </b-form-group>
-        <b-form-group label="담당작업자" label-for="operator" label-cols="3">
-          <b-form-input id="operator" v-model="workHistory.operator"></b-form-input>
         </b-form-group>
         <b-form-group label="투입수량" label-for="inputQuantity" label-cols="3">
           <b-form-input id="inputQuantity" v-model="workHistory.inputQuantity"></b-form-input>

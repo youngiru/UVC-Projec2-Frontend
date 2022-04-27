@@ -18,28 +18,6 @@ export default {
     tokenUserRole() {
       return this.$store.getters.TokenUser && this.$store.getters.TokenUser.role
     }
-    //   getTest() {
-    //     let test = ''
-    //     if (this.tokenUser == 'leader') {
-    //       test = '관리자페이지'
-    //       console.log('test3')
-    //     } else if (this.tokenUser == 'member') {
-    //       console.log('test5')
-    //       test = ''
-    //     }
-    //     return test
-    //   }
-    // },
-    // watch: {
-    //   tokenUser(value) {
-    //     console.log('test6', value)
-    //     if (value == 'leader') {
-    //       console.log('test3')
-    //       this.$router.push('/leader')
-    //     } else if (value == 'member') {
-    //       console.log('test5')
-    //     }
-    //   }
   }
 }
 </script>

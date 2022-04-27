@@ -56,14 +56,17 @@ export default {
     },
     inputMode() {
       return this.$store.getters.UserInputMode
+    },
+    updatedResult() {
+      return this.$store.getters.UserUpdatedResult
     }
   },
   created() {
     this.user = this.$store.getters.TokenUser
-    console.log('mypage', this.user)
   },
   methods: {
     onSubmit() {
+      this.$store.dispatch('actMypageUpdate', this.user)
       this.$router.push('/')
       this.$store.dispatch('authLogout')
     }

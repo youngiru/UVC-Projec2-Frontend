@@ -77,7 +77,7 @@ export default {
         // 메세지 출력
         this.$bvToast.toast('아이디/비밀번호를 확인해 주세요.', {
           title: '로그인 에러',
-          variant: 'danger',
+          variant: 'dark',
           solid: true
         })
       }

@@ -80,7 +80,7 @@ export default {
           // 1. 메세지 출력
           this.$bvToast.toast('등록 되었습니다.', {
             title: 'SUCCESS',
-            variant: 'success',
+            variant: 'warning',
             solid: true
           })
 
@@ -90,7 +90,7 @@ export default {
           // 등록이 실패한 경우
           this.$bvToast.toast('등록이 실패하였습니다.', {
             title: 'ERROR',
-            variant: 'danger',
+            variant: 'dark',
             solid: true
           })
         }
@@ -105,7 +105,7 @@ export default {
           // 1. 메세지 출력
           this.$bvToast.toast('수정 되었습니다.', {
             title: 'SUCCESS',
-            variant: 'success',
+            variant: 'warning',
             solid: true
           })
 
@@ -115,7 +115,7 @@ export default {
           // 수정이 실패한 경우
           this.$bvToast.toast('수정이 실패하였습니다.', {
             title: 'ERROR',
-            variant: 'danger',
+            variant: 'dark',
             solid: true
           })
         }
@@ -130,7 +130,7 @@ export default {
           // 1. 메세지 출력
           this.$bvToast.toast('삭제 되었습니다.', {
             title: 'SUCCESS',
-            variant: 'success',
+            variant: 'warning',
             solid: true
           })
 
@@ -140,7 +140,7 @@ export default {
           // 삭제가 실패한 경우
           this.$bvToast.toast('삭제가 실패하였습니다.', {
             title: 'ERROR',
-            variant: 'danger',
+            variant: 'dark',
             solid: true
           })
         }

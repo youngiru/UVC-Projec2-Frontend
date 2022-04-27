@@ -133,6 +133,23 @@ export default {
           context.commit('setUpdatedResult', -1)
         })
     },
+    actMypageUpdate(context, payload) {
+      // 상태값 초기화
+      context.commit('setUpdatedResult', null)
+
+      /* RestAPI 호출 */
+      api
+        .put(`/serverApi/users/mypage/${payload.id}`, payload)
+        .then(response => {
+          const updatedResult = response && response.data && response.data.updatedCount
+          context.commit('setUpdatedResult', updatedResult)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          console.error('MypageUpdate.error', error)
+          context.commit('setUpdatedResult', -1)
+        })
+    },
     actUserDelete(context, payload) {
       // 상태값 초기화
       context.commit('setDeletedResult', null)
