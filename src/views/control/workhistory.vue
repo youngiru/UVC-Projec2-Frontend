@@ -10,7 +10,7 @@
             <div>
               <b-table striped :fields="before" :items="workHistoryList">
                 <template #cell(btn)="">
-                  <b-button size="sm" variant="dark" class="mr-2">시작</b-button>
+                  <b-button size="sm" variant="dark" class="mr-2" @click="uptimeBtn">시작</b-button>
                   <b-button size="sm" variant="dark" class="mr-2" @click="Done">완료</b-button>
                 </template>
               </b-table>
@@ -20,7 +20,7 @@
         <b-tab title="작업이력" class="completion_box">
           <div id="completion_div">
             <b-button variant="dark">리셋</b-button>
-            <b-table striped :fields="end"></b-table>
+            <b-table striped :fields="end" :items="workHistoryDoneList"></b-table>
           </div>
         </b-tab>
         <b-tab title="통계" class="status_box">
@@ -28,7 +28,11 @@
             <line-chart class="chart1" :chart-data="chartData" />
             <line-chart class="chart2" :chart-data="chartData1" />
           </div>
-          <b-table :items="item" :fields="fields" class="status_table"></b-table>
+          <b-table :items="item" :fields="fields" class="status_table">
+            <template #cell(temperature)="">
+              <link href="192.168.43.208:1880/ui" />
+            </template>
+          </b-table>
         </b-tab>
       </b-tabs>
     </div>
@@ -61,8 +65,8 @@ export default {
         }
       ],
       item: [
-        { name: 40, temperature: 'Dickerson' },
-        { name: 40, temperature: 'Dickerson' }
+        { name: 40, temperature: '' },
+        { name: 40, temperature: '' }
       ],
       before: [
         {
@@ -136,7 +140,7 @@ export default {
           label: '공정반복시간'
         },
         {
-          key: 'downtime',
+          key: 'updatedAt',
           label: '끝난시간'
         }
       ],
@@ -149,6 +153,9 @@ export default {
     workHistoryList() {
       return this.$store.getters.WorkHistoryList
     },
+    workHistoryDoneList() {
+      return this.$store.getters.WorkHistoryDoneList
+    },
     insertedResult() {
       return this.$store.getters.WorkHistoryInsertedResult
     },
@@ -157,14 +164,21 @@ export default {
     },
     deletedResult() {
       return this.$store.getters.WorkHistoryDeletedResult
+    },
+    uptimeBtn() {
+      return this.$store.getters.createdAt
     }
+    // downtimeTest() {
+    //   return this.$store.getters.updatedAt
+    // }
   },
   watch: {
+    // uptimeBtn() {
+    //   this.$store.getters.createdAt
+    // },
     insertedResult(value) {
-      console.log('work', value)
       // 등록후 처리
       if (value !== null) {
-        console.log('testwork', value)
         // 등록 성공한 경우
 
         // 메세지 출력
@@ -179,6 +193,30 @@ export default {
       } else {
         // 등록 실패한 경우
         this.$bvToast.toast('등록 실패하였습니다', {
+          title: 'ERROR',
+          variant: 'dark',
+          solid: true
+        })
+      }
+    },
+    updatedResult(value) {
+      // 등록후 처리
+      if (value !== null) {
+        // 등록 성공한 경우
+
+        // 메세지 출력
+        this.$bvToast.toast('완료 되었습니다', {
+          title: 'SUCCESS',
+          variant: 'warning',
+          solid: true
+        })
+
+        // 리스트 재검색
+        this.searchWorkHistoryList()
+        this.searchWorkHistoryDoneList()
+      } else {
+        // 등록 실패한 경우
+        this.$bvToast.toast('완료를 실패하였습니다', {
           title: 'ERROR',
           variant: 'dark',
           solid: true
@@ -217,10 +255,14 @@ export default {
   },
   created() {
     this.searchWorkHistoryList()
+    this.searchWorkHistoryDoneList()
   },
   methods: {
     searchWorkHistoryList() {
       this.$store.dispatch('actWorkHistoryList', this.search)
+    },
+    searchWorkHistoryDoneList() {
+      this.$store.dispatch('actWorkHistoryDoneList', this.search)
     },
     onClickAddNew() {
       // 신규등록
@@ -235,8 +277,9 @@ export default {
       this.$bvModal.show('modal-workHistory-inform')
     },
     Done() {
+      this.$store.getters.updatedAt
       this.$store.dispatch('actWorkHistoryUpdate', this.workHistoryList[0].id)
-      console.log('done', this.workHistoryList[0].id)
+      console.log('Done', this.workHistoryList[0].id)
     },
     makeChartData() {
       this.chartData = {

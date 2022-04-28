@@ -14,20 +14,22 @@ const stateInit = {
     defectiveQuantity: null, // 불량품
     defectiveRate: null, // 불량률
     stock: null, // 재고수량
-    uptime: null, // 시작시각
-    downtime: null, // 중지시각
+    uptime: null, // 시작버튼 누른 시각
+    downtime: null, // 중지버튼 누른 시각
     leadtime: null, // 공정작업시간
     color: null, // 색선별
     ready: null, // 준비상태
     reset: null, // 리셋
     operating: null, // true: 가동중, false: 미가동
-    createdAt: null
+    createdAt: null, // 가동시간
+    updatedAt: null // 끝난시간
   }
 }
 
 export default {
   state: {
     WorkHistoryList: [],
+    WorkHistoryDoneList: [],
     WorkHistory: { ...stateInit.WorkHistory },
     InsertedResult: null, // 입력처리 후 결과
     UpdatedResult: null, // 수정처리 후 결과
@@ -37,6 +39,7 @@ export default {
   },
   getters: {
     WorkHistoryList: state => state.WorkHistoryList,
+    WorkHistoryDoneList: state => state.WorkHistoryDoneList,
     WorkHistory: state => state.WorkHistory,
     WorkHistoryInsertedResult: state => state.InsertedResult,
     WorkHistoryUpdatedResult: state => state.UpdatedResult,
@@ -47,6 +50,9 @@ export default {
   mutations: {
     setWorkHistoryList(state, data) {
       state.WorkHistoryList = data
+    },
+    setWorkHistoryDoneList(state, data) {
+      state.WorkHistoryDoneList = data
     },
     setWorkHistory(state, data) {
       state.WorkHistory = data
@@ -68,7 +74,7 @@ export default {
     }
   },
   actions: {
-    // 작업이력 리스트 조회
+    // 작업현황 리스트 조회
     actWorkHistoryList(context, payload) {
       // RestAPI 호출
       api
@@ -83,11 +89,25 @@ export default {
           context.commit('setWorkHistoryList', [])
         })
     },
+    // 작업이력 리스트 조회
+    actWorkHistoryDoneList(context, payload) {
+      // RestAPI 호출
+      api
+        .get('/serverApi/workStatus', { params: payload })
+        .then(response => {
+          const workhistoryDone = response && response.data
+          context.commit('setWorkHistoryDoneList', workhistoryDone)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          console.error('WorkHistoryDoneList.error', error)
+          context.commit('setWorkHistoryDoneList', [])
+        })
+    },
     // 작업이력 입력
     actWorkHistoryInsert(context, payload) {
       // 상태값 초기화
       context.commit('setInsertedResult', null)
-      console.log('insert', payload)
       // RestAPI 호출
       api
         .post('/serverApi/workStatus', payload)
@@ -148,10 +168,11 @@ export default {
       context.commit('setUpdatedResult', null)
 
       api
-        .put(`/serverApi/workStatus/${payload.id}`, payload)
+        .put(`/serverApi/workStatus/done/${payload}`)
         .then(response => {
           const updatedResult = response && response.data && response.data.updatedResult
           context.commit('setUpdatedResult', updatedResult)
+          console.log('update', payload)
         })
         .catch(error => {
           // 에러인 경우 처리
